@@ -63,6 +63,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 	return;
 }
 
+// make the queue from initial state of the circuit
 void readInitialConditions(ifstream& f) {
 	// Declarations
 	string vectorWord, keyword, name;
@@ -81,12 +82,17 @@ void readInitialConditions(ifstream& f) {
 	}
 }
 
+
 void simulate() {
-
+	// grab items from the queue to run the simulation
+	
+	// add and subtract events as necessary
+	
+	// record what happens for printing
 }
-
+// visually show what happened, using the stored results from the simulation
 void print() {
-
+	// fetch results of simulation and display
 }
 
 int main() {
@@ -94,9 +100,10 @@ int main() {
 	vector<Gate*> gates;
 	vector<Wire*> wires;
 	ifstream cfile, vfile; // circuit file and initial conditions file
-
+	// get the file name
 	string fileName;
 	cin >> fileName;
 
-	cfile.open(/*file_name*/ fileName);
+	cfile.open(fileName);
+	// hand off tasks to the rest of the functions outside of main
 }
