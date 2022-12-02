@@ -2,6 +2,7 @@
 #include <fstream>
 #include "Gate.h"
 #include "Wire.h"
+#include "Event.h"
 using namespace std;
 
 void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
@@ -87,6 +88,7 @@ int main() {
 	vector<Gate*> gates;
 	vector<Wire*> wires;
 	ifstream cfile, vfile; // circuit file and initial conditions file
+
 	// get the file name
 	string fileName;
 	cin >> fileName;
