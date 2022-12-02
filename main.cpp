@@ -27,11 +27,11 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 			}
 			else if (w.size() >= (wireNum + 1)) {//the wire vector is large enough
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
-					w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
+					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
 				}
 			}
 			else if (w.size() < (wireNum + 1)) {//the vector is not large enough
-				w.resize(wireNum + 1); //expand vector to accomidate current wire and set all added elements to NULL
+				w.resize(wireNum + 1, NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
 			}
 
