@@ -23,16 +23,23 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 
 			// if necessary, put the wire in the wire vector
 			if (wireNum < 0) {
-				cout << ">:\ Try again..." << endl;
+				cout << "Wire number less than 0." << endl;
 			}
 			else if (w.size() >= (wireNum + 1)) {//the wire vector is large enough
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
 					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
+					Wire* newWirePtr = new Wire();	// creates new wire pointer
+					// w.insert(w.at(wireNum), newWirePtr); // an attempt at placing the the wire pointer with the correct value inside of the wire vector
 				}
 			}
-			else if (w.size() < (wireNum + 1)) {//the vector is not large enough
-				w.resize(wireNum + 1, NULL); //expand vector to accomidate current wire and set all added elements to NULL
+			else if (w.size() < (wireNum + 1)) {//the wire vector is too small
+				//w.resize((wireNum + 1), NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
+				while (w.size() < (wireNum)) {
+					w.push_back(NULL);
+				}
+				Wire* newWirePointer = new Wire();
+				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
 			}
 
 		}
@@ -78,7 +85,7 @@ void readInitialConditions(ifstream& f, vector<Event>& e) {
 		if (keyword == "INPUT") {
 			f >> wireLetters >> initialTime >> initialValue;
 
-			// Store this info where it can be accessed later
+			// Store this info in the queue
 		}
 	}
 }
