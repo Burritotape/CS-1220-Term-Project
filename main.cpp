@@ -111,5 +111,7 @@ int main() {
 
 	// construct events
 
+	// simulate the circuit with the events
 
+	// print out the results of the simulation graphically
 }
