@@ -65,7 +65,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 }
 
 // make the queue from initial state of the circuit
-void readInitialConditions(ifstream& f) {
+void readInitialConditions(ifstream& f, vector<Event>& e) {
 	// Declarations
 	string vectorWord, keyword, name;
 	// Read the first line
@@ -100,14 +100,19 @@ int main() {
 	// vector<Event> queue;
 	vector<Gate*> gates;
 	vector<Wire*> wires;
+	vector<Event> events;
 	ifstream cfile, vfile; // circuit file and initial conditions file
-
-	// get the file name
 	string fileName;
-	cin >> fileName;
 
+	// parse circuit description file
+	cfile >> fileName;
 	cfile.open(fileName);
+	readCircuitDescription(cfile, gates, wires);
+
 	// parse vector file
+	vfile >> fileName;
+	vfile.open(fileName);
+	readInitialConditions(vfile, events);
 
 	// construct events
 
