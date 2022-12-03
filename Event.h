@@ -3,14 +3,14 @@
 // 12/1/2022
 
 class Event {   // take the information from the initially populated vectors to create events in a queue, which will be called in order during simulate
-// public:
+public:
     // public stuff goes here
-    // Wire
-    // Time // this is first priority for the queue
-    // Value
-    // Order_of_Arrival // this is second priority for sorting the queue
+    int wire; // 
+    int time; // determines time of arrival; this is first priority for the queue
+    int boolVal; // determines whether the wire value goes high or low
+    int OOA; // Order_of_Arrival; this is second priority for sorting the queue
+    // constructor for events
 
-//  private:
-    // probably not needed?
+private:
+    vector<Event> priorityQueue; // for storing the queue of events to be read in simulation
 }
-;

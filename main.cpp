@@ -107,5 +107,9 @@ int main() {
 	cin >> fileName;
 
 	cfile.open(fileName);
-	// hand off tasks to the rest of the functions outside of main
+	// parse vector file
+
+	// construct events
+
+
 }
