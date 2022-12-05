@@ -3,6 +3,7 @@
 #include <istream>
 #include <string>
 #include <queue>
+#include <vector>
 #include "Gate.h"
 #include "Wire.h"
 #include "Event.h"
