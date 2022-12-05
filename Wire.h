@@ -10,6 +10,7 @@ class Wire {
 
 public:
     Wire();
+    Wire(string N, int I);
 
     void SetValue(int V);
     void SetHistory(string H);

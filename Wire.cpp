@@ -8,9 +8,18 @@ using namespace std;
 
 //Default Constructor
 Wire::Wire() {
-	value = -1;
+	value = 2;
 	index = -1;
 	name = "";
+	history = "";
+	drives[0] = NULL;
+}
+
+//constructor that accepts a name and index
+Wire::Wire(string N, int I) {
+	value = 2;
+	index = I;
+	name = N;
 	history = "";
 	drives[0] = NULL;
 }
