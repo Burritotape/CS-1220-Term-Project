@@ -60,6 +60,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 
 			// some wires you don't see as inputs and outputs
 			/// handle these like above
+
 		}
 		else if (keyword == "NOT") {
 			gateCount += 1;
