@@ -23,14 +23,14 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 
 			// if necessary, put the wire in the wire vector
 			if (wireNum < 0) {
-				cout << ">:\ Try again..." << endl;
+				cout << ">:/ Try again..." << endl;
 			}
 			else if (w.size() >= (wireNum + 1)) {//the wire vector is large enough
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
-					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
+					*w[wireNum + 1].name = padLetters;  //set current wire at that index  //this is currently wrong
 				}
 			}
-			else if (w.size() < (wireNum + 1)) {//the vector is not large enough
+			else if (w.size() < (wireNum + 1)) {//if the vector is not large enough
 				w.resize(wireNum + 1, NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
 			}
