@@ -1,5 +1,8 @@
 #include <iostream>
 #include <fstream>
+#include <istream>
+#include <string>
+#include <queue>
 #include "Gate.h"
 #include "Wire.h"
 #include "Event.h"
