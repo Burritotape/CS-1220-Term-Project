@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClInclude Include="Event.h" />
     <ClInclude Include="Gate.h" />
+    <ClInclude Include="Outline.h" />
     <ClInclude Include="Wire.h" />
   </ItemGroup>
   <ItemGroup>

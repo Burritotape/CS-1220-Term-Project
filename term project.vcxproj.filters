@@ -24,6 +24,9 @@
     <ClInclude Include="Wire.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Outline.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="circuit.cpp">
