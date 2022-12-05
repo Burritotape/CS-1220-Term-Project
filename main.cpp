@@ -87,6 +87,9 @@ void readInitialConditions(ifstream& f, vector<Event>& e) {
 
 			// Store this info in the queue
 		}
+		else if (keyword == "OUTPUT") {
+			// get values and store in queue
+		}
 	}
 }
 
