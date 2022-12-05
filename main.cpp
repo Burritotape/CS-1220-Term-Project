@@ -28,7 +28,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 			else if (w.size() >= (wireNum + 1)) {//the wire vector is large enough
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
 					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
-					Wire* newWirePtr = new Wire();	// creates new wire pointer
+					Wire* newWirePtr = new Wire(name, wireNum);	// creates new wire pointer
 					// w.insert(w.at(wireNum), newWirePtr); // an attempt at placing the the wire pointer with the correct value inside of the wire vector
 				}
 			}
@@ -38,8 +38,8 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 				while (w.size() < (wireNum)) {
 					w.push_back(NULL);
 				}
-				Wire* newWirePointer = new Wire();
-				w.push_back(newWirePointer);	// FAILS to place a pointer to wireNum in the vector
+				Wire* newWirePointer = new Wire(name, wireNum);
+				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
 			}
 
 		}
