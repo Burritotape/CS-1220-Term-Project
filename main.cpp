@@ -23,16 +23,23 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 
 			// if necessary, put the wire in the wire vector
 			if (wireNum < 0) {
-				cout << ">:/ Try again..." << endl;
+				cout << "Wire number less than 0." << endl;
 			}
 			else if (w.size() >= (wireNum + 1)) {//the wire vector is large enough
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
-					*w[wireNum + 1].name = padLetters;  //set current wire at that index  //this is currently wrong
+					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
+					Wire* newWirePtr = new Wire();	// creates new wire pointer
+					// w.insert(w.at(wireNum), newWirePtr); // an attempt at placing the the wire pointer with the correct value inside of the wire vector
 				}
 			}
-			else if (w.size() < (wireNum + 1)) {//if the vector is not large enough
-				w.resize(wireNum + 1, NULL); //expand vector to accomidate current wire and set all added elements to NULL
+			else if (w.size() < (wireNum + 1)) {//the wire vector is too small
+				//w.resize((wireNum + 1), NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
+				while (w.size() < (wireNum)) {
+					w.push_back(NULL);
+				}
+				Wire* newWirePointer = new Wire();
+				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
 			}
 
 		}
@@ -65,7 +72,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 }
 
 // make the queue from initial state of the circuit
-void readInitialConditions(ifstream& f) {
+void readInitialConditions(ifstream& f, vector<Event>& e) {
 	// Declarations
 	string vectorWord, keyword, name;
 	// Read the first line
@@ -78,7 +85,7 @@ void readInitialConditions(ifstream& f) {
 		if (keyword == "INPUT") {
 			f >> wireLetters >> initialTime >> initialValue;
 
-			// Store this info where it can be accessed later
+			// Store this info in the queue
 		}
 	}
 }
@@ -100,12 +107,23 @@ int main() {
 	// vector<Event> queue;
 	vector<Gate*> gates;
 	vector<Wire*> wires;
+	vector<Event> events;
 	ifstream cfile, vfile; // circuit file and initial conditions file
-
-	// get the file name
 	string fileName;
-	cin >> fileName;
 
+	// parse circuit description file
+	cfile >> fileName;
 	cfile.open(fileName);
-	// hand off tasks to the rest of the functions outside of main
+	readCircuitDescription(cfile, gates, wires);
+
+	// parse vector file
+	vfile >> fileName;
+	vfile.open(fileName);
+	readInitialConditions(vfile, events);
+
+	// construct events
+
+	// simulate the circuit with the events
+
+	// print out the results of the simulation graphically
 }
