@@ -2,6 +2,8 @@
 // Created by Joshua Cappella and Jaeden Biermeier
 // 12/1/2022
 
+using namespace std;
+
 class Event {   // take the information from the initially populated vectors to create events in a queue, which will be called in order during simulate
 public:
     // public stuff goes here

@@ -39,7 +39,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 					w.push_back(NULL);
 				}
 				Wire* newWirePointer = new Wire();
-				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
+				w.push_back(newWirePointer);	// FAILS to place a pointer to wireNum in the vector
 			}
 
 		}

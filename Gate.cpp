@@ -7,6 +7,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 Gate::Gate(string gateT, int delayT, Wire * wirePtr1,
     Wire * wirePtr2, Wire * wirePtr3){
     gateType = gateT;
