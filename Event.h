@@ -16,6 +16,9 @@ public:
     int OOA; // Order_of_Arrival; this is second priority for sorting the queue
     // constructor for events
 
+    // comparator for event order of operations
+    friend bool operator<(const Event& c1, const Event& c2);
+
 private:
     vector<Event> priorityQueue; // for storing the queue of events to be read in simulation
 };
