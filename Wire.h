@@ -1,7 +1,8 @@
 // This is the Wire attribute file
-
+#pragma once
 #include <string>
 #include <vector>
+
 using namespace std;
 
 class Gate;
@@ -30,4 +31,4 @@ private:
     string name;
     string history;
     vector<Gate*> drives;
-}
+};

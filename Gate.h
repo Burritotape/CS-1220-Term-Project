@@ -1,8 +1,9 @@
 // This is the Gate attribute file
 // Created by Joshua Cappella and Jaeden Biermeier
 // 11/16/2022
-
+#pragma once
 #include <string>
+#include <vector>
 using namespace std;
 
 class Wire;
@@ -21,4 +22,4 @@ private:
     int delayTime;
     Wire* wireIn1, * wireIn2;
     Wire* wireOut;
-}
+};

@@ -4,6 +4,7 @@
 #include "Gate.h"
 #include <string>
 #include <iostream>
+#include <vector>
 using namespace std;
 
 //Default Constructor
