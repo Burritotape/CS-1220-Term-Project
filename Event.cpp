@@ -8,6 +8,18 @@
 #include <string>
 #include "Event.h"
 
+Event::Event() {
+	wire = "";
+	time = -1;
+	boolVal = 2;
+}
+
+Event::Event(string W, int T, int V) {
+	wire = W;
+	time = T;
+	boolVal = V;
+}
+
 bool operator<(const Event& c1, const Event& c2) {
 
 	// by default the queue is a MAX queue, so we reverse the comparison
