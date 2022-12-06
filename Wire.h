@@ -1,5 +1,5 @@
 // This is the Wire attribute file
-
+#pragma once
 #include <string>
 #include <vector>
 using namespace std;

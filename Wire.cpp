@@ -1,5 +1,5 @@
 // This is the wire implmentation file
-
+#pragma once
 #include "Wire.h"
 #include "Gate.h"
 #include <string>
