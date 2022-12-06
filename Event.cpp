@@ -18,8 +18,8 @@ Event::Event(string W, int T, int V) {
 	wire = W;
 	time = T;
 	boolVal = V;
-
-	OOA += 1;
+	OOA = k;
+	k += 1;
 }
 
 bool operator<(const Event& c1, const Event& c2) {
