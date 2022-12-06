@@ -68,6 +68,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 				w.push_back(NULL);
 			}
 			
+			//creates any unspecified wires
 			if (w[in1] == NULL) {
 				Wire* newWirePtr = new Wire("", in1);
 				w[in1] = newWirePtr;
@@ -80,6 +81,8 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 				Wire* newWirePtr = new Wire("", out);
 				w[out] = newWirePtr;
 			}
+
+			//creates Gate
 			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[in2], w[out]);
 		}
 		else if (keyword == "NOT") {
@@ -138,6 +141,10 @@ int main() {
 	vector<Event> events;
 	ifstream cfile, vfile; // circuit file and initial conditions file
 	string fileName;
+	//ask for curcuit file input
+	cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
+	cout << "Press <ENTER> only at promt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
+
 
 	// parse circuit description file
 	cfile >> fileName;
