@@ -113,11 +113,10 @@ void readInitialConditions(ifstream& f, vector<Event>& e) {
 		if (keyword == "INPUT") {
 			f >> wireLetters >> eventTime >> newValue;
 
-			//create event
+			//create event and store info in event
 
-			//
 
-			// Store this info in the queue
+			// Store event in the queue
 
 
 		}
