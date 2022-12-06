@@ -13,7 +13,7 @@ public:
     string wire; // 
     int time; // determines time of arrival; this is first priority for the queue
     int boolVal; // determines whether the wire value goes high or low
-    int OOA; // Order_of_Arrival; this is second priority for sorting the queue
+    int OOA = 0 // Order_of_Arrival; this is second priority for sorting the queue
     // constructor for events
 
     // comparator for event order of operations
