@@ -109,14 +109,17 @@ void readInitialConditions(ifstream& f, vector<Event>& e) {
 	f >> keyword;
 	
 	while (!f.eof()) {
-		int initialTime, initialValue;
+		int eventTime, newValue;
 		if (keyword == "INPUT") {
-			f >> wireLetters >> initialTime >> initialValue;
+			f >> wireLetters >> eventTime >> newValue;
+
+			//create event
+
+			//
 
 			// Store this info in the queue
-		}
-		else if (keyword == "OUTPUT") {
-			// get values and store in queue
+
+
 		}
 		f >> keyword;
 	}
