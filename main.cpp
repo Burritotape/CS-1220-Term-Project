@@ -140,20 +140,20 @@ int main() {
 	vector<Wire*> wires;
 	vector<Event> events;
 	ifstream cfile, vfile; // circuit file and initial conditions file
-	string fileName;
+	string cFileName, vFileName;
 	//ask for curcuit file input
 	cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
 	cout << "Press <ENTER> only at promt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
 
 
 	// parse circuit description file
-	cfile >> fileName;
-	cfile.open(fileName);
+	cin >> cFileName;
+	cfile.open(cFileName);
 	readCircuitDescription(cfile, gates, wires);
 
 	// parse vector file
-	vfile >> fileName;
-	vfile.open(fileName);
+	vFileName = cFileName + "_v";
+	vfile.open(vFileName);
 	readInitialConditions(vfile, events);
 
 	// construct events
