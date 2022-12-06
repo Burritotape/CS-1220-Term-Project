@@ -16,6 +16,14 @@ Gate::Gate(string gateT, int delayT, Wire * wirePtr1, Wire * wirePtr2, Wire * wi
     wireIn2 = wirePtr2;
     wireOut = wirePtr3;
 }
+
+Gate::Gate(string gateT, int delayT, Wire* wirePtr1, Wire* wirePtr3) {
+    gateType = gateT;
+    delayTime = delayT;
+    wireIn1 = wirePtr1;
+    wireOut = wirePtr3;
+}
+
 int Gate::getDelay() const {
     return delayTime;
 }
