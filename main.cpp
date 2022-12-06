@@ -150,7 +150,7 @@ int main() {
 	cin >> cFileName;
 	cfile.open(cFileName);
 	readCircuitDescription(cfile, gates, wires);
-
+	cout << "chicken noodles";
 	// parse vector file
 	vFileName = cFileName + "_v";
 	vfile.open(vFileName);
