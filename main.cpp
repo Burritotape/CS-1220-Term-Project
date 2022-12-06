@@ -34,22 +34,22 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
 					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
 					Wire* newWirePtr = new Wire(name, wireNum);	// creates new wire pointer
-					w[wireNum] = newWirePtr; // an attempt at placing the the wire pointer with the correct value inside of the wire vector
+					w[wireNum] = newWirePtr; // places the wirepointer in the vector
 				}
 			}
 			else if (w.size() < (wireNum + 1)) {//the wire vector is too small
 				//w.resize((wireNum + 1), NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
-				while (w.size() < (wireNum)) {
+				while (w.size() < (wireNum + 1)) {
 					w.push_back(NULL);
 				}
 				Wire* newWirePointer = new Wire(name, wireNum);
-				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
+				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
 			}
 
 		}
-		else if ((keyword == "AND") || (keyword == "OR") || (keyword == "XOR") || 
-			(keyword == "NAND") || (keyword == "NOR") || (keyword == "NANDX") || 
+		else if ((keyword == "AND") || (keyword == "OR") || (keyword == "XOR") ||
+			(keyword == "NAND") || (keyword == "NOR") || (keyword == "NANDX") ||
 			(keyword == "XNOR") || (keyword == "NORX")) {
 			gateCount += 1;
 			// assign elements for the gate
@@ -61,6 +61,25 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 
 			// some wires you don't see as inputs and outputs
 			/// handle these like above
+
+
+			// expands vector to accomidate all wirePtrs for this Gate
+			while (w.size() < (out + 1)) {
+				w.push_back(NULL);
+			}
+			
+			if (w[in1] == NULL) {
+				Wire* newWirePtr = new Wire("", in1);
+				w[in1] = newWirePtr;
+			}
+			if (w[in2] == NULL) {
+				Wire* newWirePtr = new Wire("", in2);
+				w[in2] = newWirePtr;
+			}
+			if (w[out] == NULL) {
+				Wire* newWirePtr = new Wire("", out);
+				w[out] = newWirePtr;
+			}
 			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[in2], w[out]);
 		}
 		else if (keyword == "NOT") {
