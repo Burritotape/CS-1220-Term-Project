@@ -13,7 +13,7 @@ Wire::Wire() {
 	index = -1;
 	name = "";
 	history = "";
-	drives[0] = NULL;
+	drives.push_back(NULL);
 }
 
 //constructor that accepts a name and index
@@ -22,7 +22,7 @@ Wire::Wire(string N, int I) {
 	index = I;
 	name = N;
 	history = "";
-	drives[0] = NULL;
+	drives.push_back(NULL);
 }
 
 //The three set functions to set the component info

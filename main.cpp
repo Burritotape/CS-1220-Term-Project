@@ -102,13 +102,13 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 // make the queue from initial state of the circuit
 void readInitialConditions(ifstream& f, vector<Event>& e) {
 	// Declarations
-	string vectorWord, keyword, name;
+	string vectorWord, keyword, name, wireLetters;
 	// Read the first line
 	f >> vectorWord >> name;
 	// While loop for assigning values of conditions
 	f >> keyword;
+	
 	while (!f.eof()) {
-		string wireLetters;
 		int initialTime, initialValue;
 		if (keyword == "INPUT") {
 			f >> wireLetters >> initialTime >> initialValue;
@@ -118,6 +118,7 @@ void readInitialConditions(ifstream& f, vector<Event>& e) {
 		else if (keyword == "OUTPUT") {
 			// get values and store in queue
 		}
+		f >> keyword;
 	}
 }
 
@@ -140,7 +141,7 @@ int main() {
 	vector<Wire*> wires;
 	vector<Event> events;
 	ifstream cfile, vfile; // circuit file and initial conditions file
-	string cFileName, vFileName;
+	string cFileName, newCFN, vFileName;
 	//ask for curcuit file input
 	cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
 	cout << "Press <ENTER> only at promt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
@@ -148,13 +149,16 @@ int main() {
 
 	// parse circuit description file
 	cin >> cFileName;
-	cfile.open(cFileName);
+	newCFN = cFileName + ".txt";
+	cfile.open(newCFN);
+	cout << "Knock knock\n";
 	readCircuitDescription(cfile, gates, wires);
-	cout << "chicken noodles";
+	cout << "Who's there?\n";
 	// parse vector file
-	vFileName = cFileName + "_v";
+	vFileName = cFileName + "_v.txt";
 	vfile.open(vFileName);
 	readInitialConditions(vfile, events);
+	cout << "Cow's go.\n";
 
 	// construct events
 
