@@ -117,7 +117,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 			Event newEvent = Event(wireLetters, eventTime, newValue);
 
 			// Store event in the queue
-
+			Qu.push(newEvent);
 
 		}
 		f >> keyword;
