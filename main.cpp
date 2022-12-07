@@ -100,7 +100,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 }
 
 // make the queue from initial state of the circuit
-void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
+void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> w) {
 	// Declarations
 	string vectorWord, keyword, name, wireLetters;
 	// Read the first line
@@ -112,7 +112,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 		int eventTime, newValue;
 		if (keyword == "INPUT") {
 			f >> wireLetters >> eventTime >> newValue;
-
+			Wire* wIndex = getWireIndex(wireLetters, 0, w);
 			//create event and store info in event
 			Event newEvent = Event(wireLetters, eventTime, newValue);
 
@@ -124,8 +124,18 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 	}
 }
 
-Wire* getWireIndex(string wName, string wIndex, vector<Wire*> w) {
+Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
 	// get the wire pointer for access of the date members of the wire using the wire string ("ab" per se)
+	for (int i = 0; i < wIndexVec.size(); i++) {
+		Wire* wNameThing = wIndexVec.at(i);
+		if (wNameThing->GetName() == wName) {
+			return wIndexVec.at(i);
+		}
+		if (wNameThing->GetIndex() == wIndex) {
+			return wIndexVec.at(i);
+		}
+	}
+	Wire* newWire = new Wire(wName, wIndex);
 }
 
 void simulate() {
@@ -163,7 +173,7 @@ int main() {
 	// parse vector file
 	vFileName = cFileName + "_v.txt";
 	vfile.open(vFileName);
-	readInitialConditions(vfile, PQ);
+	readInitialConditions(vfile, PQ, wires);
 	cout << "Cow's go.\n";
 
 	// construct events

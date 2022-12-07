@@ -10,7 +10,6 @@ class Gate;
 class Wire {
 
 public:
-    Wire();
     Wire(string N, int I);
 
     void SetValue(int V);
