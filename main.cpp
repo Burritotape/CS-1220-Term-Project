@@ -187,6 +187,7 @@ int main() {
 		if (!cfile.is_open()) {
 			cout << "Error 404 : Circuit file not found.  Please try again." << endl;
 		}
+		// construct event queue
 		else if (cfile.is_open()) {
 			cout << "Knock knock\n";
 			readCircuitDescription(cfile, gates, wires);
@@ -208,10 +209,8 @@ int main() {
 
 
 	}
-
-	// construct events
-
 	// simulate the circuit with the events
-
+	simulate(wires, PQ, time);
+	cout << "Cow's go 'Who'?\n";
 	// print out the results of the simulation graphically
 }
