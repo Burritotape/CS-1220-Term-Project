@@ -18,6 +18,9 @@ public:
 
     // comparator for event order of operations
     friend bool operator<(const Event& c1, const Event& c2);
+    int GetWireNum() const;
+    int GetTime() const;
+
 
 private:
     int k = 0;

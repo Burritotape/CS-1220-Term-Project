@@ -22,6 +22,14 @@ Event::Event(int I, int T, int V) {
 	k += 1;
 }
 
+int Event::GetTime() const {
+	return time;
+}
+
+int Event::GetWireNum() const{
+	return wireNum;
+}
+
 bool operator<(const Event& c1, const Event& c2) {
 
 	// by default the queue is a MAX queue, so we reverse the comparison
