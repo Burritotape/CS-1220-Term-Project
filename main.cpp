@@ -168,7 +168,7 @@ int main() {
 	while(!yes) {
 		//ask for curcuit file input
 		cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
-		cout << "Press <ENTER> only at promt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
+		cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
 
 
 		// parse circuit description file
@@ -179,14 +179,14 @@ int main() {
 			cout << "Error 404 : Circuit file not found.  Please try again." << endl;
 		}
 		else if (cfile.is_open()) {
-			//cout << "Knock knock\n";
+			cout << "Knock knock\n";
 			readCircuitDescription(cfile, gates, wires);
-			//cout << "Who's there?\n";
+			cout << "Who's there?\n";
 			// parse vector file
 			vFileName = cFileName + "_v.txt";
 			vfile.open(vFileName);
 			if (!vfile.is_open()) {
-				//cout << "Cow's go.\n";
+				cout << "Cow's go.\n";
 				cout << "Error 405 : Vector file not found.  Please try again." << endl;
 			}
 			else if (vfile.is_open()) {

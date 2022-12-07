@@ -139,6 +139,10 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Wire.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Circuit-Description-Files\circuit0.txt" />
+    <Text Include="Circuit-Description-Files\circuit0_v.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
