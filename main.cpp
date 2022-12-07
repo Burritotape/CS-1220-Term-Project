@@ -100,7 +100,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 }
 
 // make the queue from initial state of the circuit
-void readInitialConditions(ifstream& f, vector<Event>& e) {
+void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 	// Declarations
 	string vectorWord, keyword, name, wireLetters;
 	// Read the first line
@@ -141,9 +141,10 @@ int main() {
 	// vector<Event> queue;
 	vector<Gate*> gates;
 	vector<Wire*> wires;
-	vector<Event> events;
+	priority_queue<Event> PQ;
 	ifstream cfile, vfile; // circuit file and initial conditions file
 	string cFileName, newCFN, vFileName;
+	
 	//ask for curcuit file input
 	cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
 	cout << "Press <ENTER> only at promt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
@@ -159,7 +160,7 @@ int main() {
 	// parse vector file
 	vFileName = cFileName + "_v.txt";
 	vfile.open(vFileName);
-	readInitialConditions(vfile, events);
+	readInitialConditions(vfile, PQ);
 	cout << "Cow's go.\n";
 
 	// construct events
