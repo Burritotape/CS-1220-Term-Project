@@ -114,7 +114,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 			f >> wireLetters >> eventTime >> newValue;
 
 			//create event and store info in event
-
+			Event newEvent = Event(wireLetters, eventTime, newValue);
 
 			// Store event in the queue
 
