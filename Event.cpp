@@ -11,13 +11,13 @@
 Event::Event() {
 	wireNum = k;
 	time = -1;
-	boolVal = 2;
+	voltVal = 2;
 }
 
 Event::Event(int I, int T, int V) {
 	wireNum = I;
 	time = T;
-	boolVal = V;
+	voltVal = V;
 	OOA = k;
 	k += 1;
 }

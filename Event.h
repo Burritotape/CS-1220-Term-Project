@@ -12,7 +12,7 @@ public:
     Event(int I, int T, int V);
     int wireNum; // 
     int time; // determines time of arrival; this is first priority for the queue
-    int boolVal; // determines whether the wire value goes high or low
+    int voltVal; // determines whether the wire value goes high or low
     int OOA = 0; // Order_of_Arrival; this is second priority for sorting the queue
     // constructor for events
 
