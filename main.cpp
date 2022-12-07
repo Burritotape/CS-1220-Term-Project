@@ -143,7 +143,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// grab items from the queue to run the simulation
 	Event currEvent = p.top();
 	// update wire states based on read events
-	if (time != currEvent.) {
+	if (time != currEvent.Get) {
 
 	}
 	// update wire history, preferably in a history string, for printing
