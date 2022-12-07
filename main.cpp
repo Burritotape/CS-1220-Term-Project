@@ -10,6 +10,21 @@
 #include "Event.h"
 using namespace std;
 
+Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
+	// get the wire pointer for access of the date members of the wire using the wire string ("ab" per se)
+	for (int i = 0; i < wIndexVec.size(); i++) {
+		Wire* wNameThing = wIndexVec.at(i);
+		if (wNameThing->GetName() == wName) {
+			return wIndexVec.at(i);
+		}
+		if (wNameThing->GetIndex() == wIndex) {
+			return wIndexVec.at(i);
+		}
+	}
+	Wire* newWire = new Wire(wName, wIndex);
+	return newWire;
+}
+
 void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 	string circuitWord, keyword, name;
 	int gateCount = 0;
@@ -122,21 +137,6 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 		}
 		f >> keyword;
 	}
-}
-
-Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
-	// get the wire pointer for access of the date members of the wire using the wire string ("ab" per se)
-	for (int i = 0; i < wIndexVec.size(); i++) {
-		Wire* wNameThing = wIndexVec.at(i);
-		if (wNameThing->GetName() == wName) {
-			return wIndexVec.at(i);
-		}
-		if (wNameThing->GetIndex() == wIndex) {
-			return wIndexVec.at(i);
-		}
-	}
-	Wire* newWire = new Wire(wName, wIndex);
-	return newWire;
 }
 
 void simulate() {
