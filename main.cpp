@@ -119,6 +119,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> w) {
 	// Declarations
 	string vectorWord, keyword, name, wireLetters;
+	int OOA = 0;
 	// Read the first line
 	f >> vectorWord >> name;
 	// While loop for assigning values of conditions
@@ -131,12 +132,13 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 			Wire* wIndex = getWireIndex(wireLetters, -1, w);
 			int index = wIndex->GetIndex();
 			//create event and store info in event
-			Event newEvent = Event(index, eventTime, newValue);
+			Event newEvent = Event(index, eventTime, newValue, OOA);
 
 			// Store event in the queue
 			Qu.push(newEvent);
 		}
 		f >> keyword;
+		OOA += 1;
 	}
 }
 
