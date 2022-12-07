@@ -9,11 +9,11 @@ class Event {   // take the information from the initially populated vectors to 
 public:
     // public stuff goes here
     Event();
-    Event(int I, int T, int V);
+    Event(int I, int T, int V, int O);
     int wireNum; // 
     int time; // determines time of arrival; this is first priority for the queue
     int voltVal; // determines whether the wire value goes high or low
-    int OOA = 0; // Order_of_Arrival; this is second priority for sorting the queue
+    int OOArrival; // Order_of_Arrival; this is second priority for sorting the queue
     // constructor for events
 
     // comparator for event order of operations

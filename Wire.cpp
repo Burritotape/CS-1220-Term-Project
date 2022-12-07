@@ -29,7 +29,7 @@ void Wire::SetDrives(vector<Gate*> D) {
 	drives = D;
 }
 
-//The five Get funtions to obtain the component info
+//The five Get funtions to obtain the stored wire data 
 int Wire::GetValue() const {
 	return value;
 }
