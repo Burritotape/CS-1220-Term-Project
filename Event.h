@@ -20,7 +20,7 @@ public:
     friend bool operator<(const Event& c1, const Event& c2);
     int GetWireNum() const;
     int GetTime() const;
-
+    int GetVoltVal() const;
 
 private:
     int k = 0;

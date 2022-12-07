@@ -30,6 +30,10 @@ int Event::GetWireNum() const{
 	return wireNum;
 }
 
+int Event::GetVoltVal() const {
+	return voltVal;
+}
+
 bool operator<(const Event& c1, const Event& c2) {
 
 	// by default the queue is a MAX queue, so we reverse the comparison
