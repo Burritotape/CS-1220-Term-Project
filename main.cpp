@@ -174,6 +174,7 @@ void print(vector<Wire*> w, int time) {
 	// fetch results of simulation and display
 
 	for (int i = 1; i < w.size(); i++) {
+		cout << "    0123456789";
 		w[1]->printHistory();
 	}
 }
