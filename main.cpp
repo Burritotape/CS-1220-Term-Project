@@ -130,7 +130,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 			Wire* wIndex = getWireIndex(wireLetters, -1, w);
 			int index = wIndex->GetIndex();
 			//create event and store info in event
-			Event newEvent = Event(index, eventTime, newValue,);
+			Event newEvent = Event(index, eventTime, newValue);
 
 			// Store event in the queue
 			Qu.push(newEvent);
