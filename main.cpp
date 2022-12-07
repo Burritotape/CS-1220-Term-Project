@@ -186,11 +186,12 @@ int main() {
 			vFileName = cFileName + "_v.txt";
 			vfile.open(vFileName);
 			if (!vfile.is_open()) {
-				cout << "Cow's go.\n";
+				
 				cout << "Error 405 : Vector file not found.  Please try again." << endl;
 			}
 			else if (vfile.is_open()) {
 				readInitialConditions(vfile, PQ, wires);
+				cout << "Cow's go.\n";
 				yes = true;
 			}
 		}
