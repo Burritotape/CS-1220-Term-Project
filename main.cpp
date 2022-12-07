@@ -149,7 +149,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	}
 	// update wire history, preferably in a history string, for printing
 	int currWireNum = currEvent.GetWireNum();
-	int currHistory = 
+	// string currHistory = currEvent.GetHistory();		// this won't work since a wire pointer is needed
 	// destroy top of priority queue
 	p.pop();
 }
