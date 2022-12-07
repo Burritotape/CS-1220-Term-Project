@@ -124,6 +124,9 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 	}
 }
 
+void getWireIndex() {
+	// get the wire pointer for access of the date members of the wire using the wire string ("ab" per se)
+}
 
 void simulate() {
 	// grab items from the queue to run the simulation
