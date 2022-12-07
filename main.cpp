@@ -142,6 +142,18 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
+char GetHiOrLo(int B) {
+	if (B == 1) {
+		return '-';
+	}
+	else if (B == 0) {
+		return '_';
+	}
+	else {
+		return 'X';
+	}
+}
+
 void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// grab items from the queue to run the simulation
 	Event currEvent = p.top();
@@ -158,9 +170,12 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	//pull history
 	string tempHistory = tempWirePtr->GetHistory();
 	if ((tempHistory.length() == 0) && (time == 0)) {
+		//if () {
 
+		//}
+		// append history with "_" or "-"
 	}
-	else if () {
+	else if (tempHistory.length() == 0) {
 
 	}
 
