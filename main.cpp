@@ -130,7 +130,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 			Wire* wIndex = getWireIndex(wireLetters, -1, w);
 			int index = wIndex->GetIndex();
 			//create event and store info in event
-			Event newEvent = Event(index, eventTime, newValue);
+			Event newEvent = Event(index, eventTime, newValue,);
 
 			// Store event in the queue
 			Qu.push(newEvent);
@@ -139,16 +139,14 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
-void simulate(priority_queue<Event> pq, int timer) {
+void simulate() {
 	// grab items from the queue to run the simulation
 	
 	// add and subtract events as necessary
 	
 	// record what happens for printing
 }
-
 // visually show what happened, using the stored results from the simulation
-
 void print() {
 	// fetch results of simulation and display
 }
