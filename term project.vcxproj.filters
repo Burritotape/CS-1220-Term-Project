@@ -55,5 +55,71 @@
     <Text Include="Circuit-Description-Files\circuit0_v.txt">
       <Filter>Test Files</Filter>
     </Text>
+    <Text Include="Circuit-Description-Files\circuit1.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit1_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit2.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit2_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit3.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit3_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit4.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit4_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit5.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit5_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit6.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit6_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit7.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit7_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit8.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit8_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit9.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\circuit9_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\flipflop1.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\flipflop1_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\flipflop2.txt">
+      <Filter>Test Files</Filter>
+    </Text>
+    <Text Include="Circuit-Description-Files\flipflop2_v.txt">
+      <Filter>Test Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

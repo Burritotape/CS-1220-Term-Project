@@ -142,6 +142,28 @@
   <ItemGroup>
     <Text Include="Circuit-Description-Files\circuit0.txt" />
     <Text Include="Circuit-Description-Files\circuit0_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit1.txt" />
+    <Text Include="Circuit-Description-Files\circuit1_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit2.txt" />
+    <Text Include="Circuit-Description-Files\circuit2_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit3.txt" />
+    <Text Include="Circuit-Description-Files\circuit3_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit4.txt" />
+    <Text Include="Circuit-Description-Files\circuit4_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit5.txt" />
+    <Text Include="Circuit-Description-Files\circuit5_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit6.txt" />
+    <Text Include="Circuit-Description-Files\circuit6_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit7.txt" />
+    <Text Include="Circuit-Description-Files\circuit7_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit8.txt" />
+    <Text Include="Circuit-Description-Files\circuit8_v.txt" />
+    <Text Include="Circuit-Description-Files\circuit9.txt" />
+    <Text Include="Circuit-Description-Files\circuit9_v.txt" />
+    <Text Include="Circuit-Description-Files\flipflop1.txt" />
+    <Text Include="Circuit-Description-Files\flipflop1_v.txt" />
+    <Text Include="Circuit-Description-Files\flipflop2.txt" />
+    <Text Include="Circuit-Description-Files\flipflop2_v.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
