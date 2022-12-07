@@ -185,8 +185,13 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	p.pop();
 }
 // visually show what happened, using the stored results from the simulation
-void print() {
+void print(vector<Wire*> w, int time) {
 	// fetch results of simulation and display
+
+	for (int i = 1; i < w.size(); i++) {
+		cout << "    0123456789";
+		w[1]->printHistory();
+	}
 }
 
 int main() {
@@ -229,12 +234,11 @@ int main() {
 				yes = true;
 			}
 		}
-		
-
-
 	}
 	// simulate the circuit with the events
 	simulate(wires, PQ, time);
 	cout << "Cow's go 'Who'?\n";
-	// print out the results of the simulation graphically
+	// print out the histories of the wires
+	print(wires, time);
+	cout << "No dear lab instructor, Cow's go 'MOO'\n";
 }

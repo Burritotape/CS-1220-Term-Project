@@ -8,7 +8,7 @@
 using namespace std;
 
 //constructor that accepts a name and index
-Wire::Wire(string N = "", int I = -1) {
+Wire::Wire(string N = " ", int I = -1) {
 	value = 2;
 	index = I;
 	name = N;
@@ -52,5 +52,5 @@ vector<Gate*> Wire::GetDrives() const {
 
 //The function used to print the history of the circuit 
 void Wire::printHistory() const {
-	cout << history << endl;
+	cout << name << "-" << index << " " << history << " " << endl;
 }
