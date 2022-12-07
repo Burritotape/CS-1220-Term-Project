@@ -139,7 +139,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
-void simulate() {
+void simulate(vector<Wire*> w, priority_queue<Event> p, int time) {
 	// grab items from the queue to run the simulation
 	
 	// add and subtract events as necessary
