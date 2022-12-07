@@ -162,7 +162,6 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 
 	tempWire.SetValue(currEvent.GetVoltVal());
 
-	// this won't work since a wire pointer is needed
 	// destroy top of priority queue
 	p.pop();
 }
