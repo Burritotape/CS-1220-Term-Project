@@ -139,12 +139,12 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
-void simulate(vector<Wire*> w, priority_queue<Event> p, int time) {
+void simulate(vector<Wire*> &wires, priority_queue<Event> p, int &time) {
 	// grab items from the queue to run the simulation
 	Event currEvent = p.top();
-	// add and subtract events as necessary
+	// update wire states based on read events
 	
-	// record what happens for printing
+	// update wire history, preferably in a history string, for printing
 
 	// destroy top of priority queue
 	p.pop();
@@ -161,6 +161,7 @@ int main() {
 	priority_queue<Event> PQ;
 	ifstream cfile, vfile; // circuit file and initial conditions file
 	string cFileName, newCFN, vFileName;
+	int time = 0;
 	
 	//ask for curcuit file input
 	cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
