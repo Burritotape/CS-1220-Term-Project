@@ -154,6 +154,12 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// string currHistory = currEvent.GetHistory();	
 	Wire* tempWirePtr = w[currWireNum];
 	Wire tempWire = *tempWirePtr;
+
+	if ((tempWirePtr->GetHistory().length()) == 0) {
+
+	}
+
+
 	tempWire.SetValue(currEvent.GetVoltVal());
 
 	// this won't work since a wire pointer is needed
