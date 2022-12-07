@@ -15,7 +15,7 @@ Event::Event() {
 }
 
 Event::Event(int I, int T, int V) {
-	wire = W;
+	wire = I;
 	time = T;
 	boolVal = V;
 	OOA = k;
