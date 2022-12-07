@@ -14,7 +14,7 @@ Event::Event() {
 	boolVal = 2;
 }
 
-Event::Event(string W, int T, int V) {
+Event::Event(int I, int T, int V) {
 	wire = W;
 	time = T;
 	boolVal = V;
