@@ -13,3 +13,17 @@
 // 5) ouput the given events and the wave data
 
 
+
+
+
+
+
+
+
+
+
+
+// simulate function
+
+// 
+

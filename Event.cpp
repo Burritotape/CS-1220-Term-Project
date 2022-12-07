@@ -9,13 +9,13 @@
 #include "Event.h"
 
 Event::Event() {
-	wire = "";
+	wireNum = k;
 	time = -1;
 	boolVal = 2;
 }
 
-Event::Event(string W, int T, int V) {
-	wire = W;
+Event::Event(int I, int T, int V) {
+	wireNum = I;
 	time = T;
 	boolVal = V;
 	OOA = k;
