@@ -157,7 +157,7 @@ void print() {
 int main() {
 	// vector<Event> queue;
 	bool yes = false;
-	int time;
+	int time = 0;
 	vector<Gate*> gates;
 	vector<Wire*> wires;
 	priority_queue<Event> PQ;
