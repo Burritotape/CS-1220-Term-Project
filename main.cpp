@@ -11,10 +11,11 @@
 using namespace std;
 
 Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
-	// get the wire pointer for access of the date members of the wire using the wire string ("ab" per se)
-	for (int i = 0; i < wIndexVec.size(); i++) {
+	// get the wire pointer for access of the data members of the wire using the wire string ("ab" per se)
+	for (int i = 1; i < wIndexVec.size(); i++) {
 		Wire* wNameThing = wIndexVec.at(i);
-		if (wNameThing->GetName() == wName) {
+		string wn = wNameThing->GetName();
+		if (wn == wName) {
 			return wIndexVec.at(i);
 		}
 		if (wNameThing->GetIndex() == wIndex) {

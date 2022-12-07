@@ -10,6 +10,7 @@ class Gate;
 class Wire {
 
 public:
+    string name;
     Wire(string N, int I);
 
     void SetValue(int V);
@@ -27,7 +28,6 @@ public:
 private:
     int value;
     int index;
-    string name;
     string history;
     vector<Gate*> drives;
 };
