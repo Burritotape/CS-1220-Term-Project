@@ -205,6 +205,7 @@ int main() {
 
 	}
 	// simulate the circuit with the events
-
+	simulate(wires, PQ, time);
+	cout << "Cow's go 'Who'?\n";
 	// print out the results of the simulation graphically
 }
