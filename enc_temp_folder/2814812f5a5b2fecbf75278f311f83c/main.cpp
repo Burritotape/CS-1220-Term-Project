@@ -139,17 +139,12 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
-void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
+void simulate(vector<Wire*> w, priority_queue<Event> p, int time) {
 	// grab items from the queue to run the simulation
-	Event currEvent = p.top();
-	// update wire states based on read events
-	if (time != currEvent.) {
-
-	}
-	// update wire history, preferably in a history string, for printing
-
-	// destroy top of priority queue
-	p.pop();
+	
+	// add and subtract events as necessary
+	
+	// record what happens for printing
 }
 // visually show what happened, using the stored results from the simulation
 void print() {
@@ -159,7 +154,7 @@ void print() {
 int main() {
 	// vector<Event> queue;
 	bool yes = false;
-	int time = 0;
+	int time;
 	vector<Gate*> gates;
 	vector<Wire*> wires;
 	priority_queue<Event> PQ;
@@ -191,7 +186,6 @@ int main() {
 			}
 			else if (vfile.is_open()) {
 				readInitialConditions(vfile, PQ, wires);
-				yes = true;
 			}
 		}
 		
