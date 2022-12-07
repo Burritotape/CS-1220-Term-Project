@@ -8,7 +8,7 @@
 using namespace std;
 
 //constructor that accepts a name and index
-Wire::Wire(string N = "", int I) {
+Wire::Wire(string N = "", int I = -1) {
 	value = 2;
 	index = I;
 	name = N;

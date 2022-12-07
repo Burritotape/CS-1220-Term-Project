@@ -112,7 +112,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 		int eventTime, newValue;
 		if (keyword == "INPUT") {
 			f >> wireLetters >> eventTime >> newValue;
-			Wire* wIndex = getWireIndex(wireLetters, 0, w);
+			Wire* wIndex = getWireIndex(wireLetters, -1, w);
 			//create event and store info in event
 			Event newEvent = Event(wireLetters, eventTime, newValue);
 
@@ -136,6 +136,7 @@ Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
 		}
 	}
 	Wire* newWire = new Wire(wName, wIndex);
+	return newWire;
 }
 
 void simulate() {
