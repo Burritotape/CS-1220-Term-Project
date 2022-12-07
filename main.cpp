@@ -170,9 +170,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	//pull history
 	string tempHistory = tempWirePtr->GetHistory();
 	if ((tempHistory.length() == 0) && (time == 0)) {
-		//if () {
-
-		//}
+		tempWire.SetHistory(tempHistory + GetHiOrLo(currEvent.GetVoltVal()));
 		// append history with "_" or "-"
 	}
 	else if (tempHistory.length() == 0) {
