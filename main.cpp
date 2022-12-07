@@ -59,7 +59,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 				while (w.size() < (wireNum + 1)) {
 					w.push_back(NULL);
 				}
-				Wire* newWirePointer = new Wire(name, wireNum);
+				Wire* newWirePointer = new Wire(padLetters, wireNum);
 				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
 			}
 
@@ -100,6 +100,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 
 			//creates Gate
 			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[in2], w[out]);
+			g.push_back(newGatePtr);
 		}
 		else if (keyword == "NOT") {
 			gateCount += 1;
@@ -116,7 +117,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 }
 
 // make the queue from initial state of the circuit
-void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> w) {
+void readInitialConditions(ifstream& f, priority_queue<Event> &Qu, const vector<Wire*> &w) {
 	// Declarations
 	string vectorWord, keyword, name, wireLetters;
 	int OOA = 0;
@@ -171,11 +172,11 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 
 		tempWire.SetValue(currEvent.GetVoltVal());
 
-		// After allocation of VoltVal, check to see if it effects the results of any gates.
+		// After the setting of VoltVal, check to see if it effects the results of any gates.
 			// If no, do nothing more and move onto next event.
 			// If so, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
 
-		// 
+	
 
 		//pull history
 		/*
