@@ -154,6 +154,16 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// string currHistory = currEvent.GetHistory();	
 	Wire* tempWirePtr = w[currWireNum];
 	Wire tempWire = *tempWirePtr;
+
+	//pull history
+	string tempHistory = tempWirePtr->GetHistory();
+	if ((tempHistory.length() == 0) && (time == 0)) {
+
+	}
+	else if () {
+
+	}
+
 	tempWire.SetValue(currEvent.GetVoltVal());
 
 	// destroy top of priority queue
