@@ -124,7 +124,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu) {
 	}
 }
 
-void getWireIndex() {
+Wire* getWireIndex(string wName, string wIndex, vector<Wire*> w) {
 	// get the wire pointer for access of the date members of the wire using the wire string ("ab" per se)
 }
 
