@@ -186,7 +186,6 @@ int main() {
 			}
 			else if (vfile.is_open()) {
 				readInitialConditions(vfile, PQ, wires);
-				yes = true;
 			}
 		}
 		
