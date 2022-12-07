@@ -160,8 +160,12 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	p.pop();
 }
 // visually show what happened, using the stored results from the simulation
-void print() {
+void print(vector<Wire*> w, int time) {
 	// fetch results of simulation and display
+	for (int i = 1; i < w.size(); i++) {
+		w[1]->GetHistory();
+	}
+	
 }
 
 int main() {
