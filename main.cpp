@@ -141,10 +141,13 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 
 void simulate(vector<Wire*> w, priority_queue<Event> p, int time) {
 	// grab items from the queue to run the simulation
-	
+	Event currEvent = p.top();
 	// add and subtract events as necessary
 	
 	// record what happens for printing
+
+	// destroy top of priority queue
+	p.pop();
 }
 // visually show what happened, using the stored results from the simulation
 void print() {
