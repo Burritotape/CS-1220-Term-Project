@@ -139,11 +139,13 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
-void simulate(vector<Wire*> &wires, priority_queue<Event> p, int &time) {
+void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// grab items from the queue to run the simulation
 	Event currEvent = p.top();
 	// update wire states based on read events
-	
+	if (time != currEvent.) {
+
+	}
 	// update wire history, preferably in a history string, for printing
 
 	// destroy top of priority queue
