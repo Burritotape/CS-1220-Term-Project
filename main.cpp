@@ -139,14 +139,16 @@ void readInitialConditions(ifstream& f, priority_queue<Event> Qu, vector<Wire*> 
 	}
 }
 
-void simulate() {
+void simulate(priority_queue<Event> pq, int timer) {
 	// grab items from the queue to run the simulation
 	
 	// add and subtract events as necessary
 	
 	// record what happens for printing
 }
+
 // visually show what happened, using the stored results from the simulation
+
 void print() {
 	// fetch results of simulation and display
 }
