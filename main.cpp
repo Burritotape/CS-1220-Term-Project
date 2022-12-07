@@ -156,31 +156,48 @@ char GetHiOrLo(int B) {
 
 void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// grab items from the queue to run the simulation
-	Event currEvent = p.top();
-	// update wire states based on read events
-	if (time != currEvent.GetTime()) {
-		time = currEvent.GetTime();
+	while (!p.empty()) {
+		Event currEvent = p.top();
+		// update wire states based on read events
+		if (time != currEvent.GetTime()) {
+			time = currEvent.GetTime();
+		}
+		// update wire history, preferably in a history string, for printing
+		int currWireNum = currEvent.GetWireNum();
+		// string currHistory = currEvent.GetHistory();	
+		Wire* tempWirePtr = w[currWireNum];
+		Wire tempWire = *tempWirePtr;
+
+
+		tempWire.SetValue(currEvent.GetVoltVal());
+
+		// After allocation of VoltVal, check to see if it effects the results of any gates.
+			// If no, do nothing more and move onto next event.
+			// If so, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
+
+		// 
+
+		//pull history
+		/*
+		string tempHistory = tempWirePtr->GetHistory();
+		if ((tempHistory.length() == 0) && (time == 0)) {
+			tempWire.SetHistory(tempHistory + GetHiOrLo(currEvent.GetVoltVal()));
+			// append history with "_" or "-"
+		}
+		else if ((time != 0)) {
+			if ((tempHistory.length() == 0) {
+
+			}
+			else {
+
+			}
+		}
+		*/
+		
+
+			// destroy top of priority queue
+			p.pop();
 	}
-	// update wire history, preferably in a history string, for printing
-	int currWireNum = currEvent.GetWireNum();
-	// string currHistory = currEvent.GetHistory();	
-	Wire* tempWirePtr = w[currWireNum];
-	Wire tempWire = *tempWirePtr;
-
-	//pull history
-	string tempHistory = tempWirePtr->GetHistory();
-	if ((tempHistory.length() == 0) && (time == 0)) {
-		tempWire.SetHistory(tempHistory + GetHiOrLo(currEvent.GetVoltVal()));
-		// append history with "_" or "-"
-	}
-	else if (tempHistory.length() == 0) {
-
-	}
-
-	tempWire.SetValue(currEvent.GetVoltVal());
-
-	// destroy top of priority queue
-	p.pop();
 }
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int & time) {
