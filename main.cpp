@@ -167,12 +167,15 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
 		Wire* tempWirePtr = w[currWireNum];
-		Wire tempWire = *tempWirePtr;
 
-
-		tempWire.SetValue(currEvent.GetVoltVal());
+		tempWirePtr->SetValue(currEvent.GetVoltVal());
 
 		// After the setting of VoltVal, check to see if it effects the results of any gates.
+		//if ( == 2) {
+			 
+		//}
+		
+		
 			// If no, do nothing more and move onto next event.
 			// If so, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
 
