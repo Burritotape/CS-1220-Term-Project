@@ -167,18 +167,37 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
 		Wire* tempWirePtr = w[currWireNum];
+		vector<Gate*> g = tempWirePtr->GetDrives();
 
-		tempWirePtr->SetValue(currEvent.GetVoltVal());
+		for (int i = 1; i < g.size(); i++) {
 
-		// After the setting of VoltVal, check to see if it effects the results of any gates.
-		//if ( == 2) {
-			 
-		//}
+			Wire* tempWirePtr = w[currWireNum];
+
+			vector<Gate*> g = tempWirePtr->GetDrives();
+
+			Wire* f = g[0]->getOutput();
+			int E1 = f->GetValue();
+
+			tempWirePtr->SetValue(currEvent.GetVoltVal());
+
+			// After the setting of VoltVal compare the outputs before and after the currEvent
+			vector<Gate*> g = tempWirePtr->GetDrives();
+
+
+			int E2 = g[0]->evaluate();
+
+
+
+			Wire* f = g[0]->getOutput();
+			// If different, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
+
+			g[0]->evaluate();
+		
+		}
 		
 		
-			// If no, do nothing more and move onto next event.
-			// If so, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
-
+			// If different, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
+			// If same, do nothing more and move onto next event.
 	
 
 		//pull history
