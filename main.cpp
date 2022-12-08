@@ -226,12 +226,10 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 			tempWirePtr->SetHistory(GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
 		else if ((time != 0)) {
-			if (tempHistory.length() == 0) {
-
+			for (int i = tempHistory.length(); i < time; ++i) {
+				tempHistory = tempHistory + 'N';
 			}
-			else {
-
-			}
+			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
 		
 		
