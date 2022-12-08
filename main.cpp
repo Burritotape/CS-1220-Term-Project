@@ -143,15 +143,15 @@ void readInitialConditions(ifstream& f, priority_queue<Event> &Qu, const vector<
 	}
 }
 
-char GetHiOrLoOrNo(int B) {
+string GetHiOrLoOrNo(int B) {
 	if (B == 1) {
-		return '-';
+		return "-";
 	}
 	else if (B == 0) {
-		return '_';
+		return "_";
 	}
 	else {
-		return 'X';
+		return "X";
 	}
 }
 
@@ -221,9 +221,9 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 		//pull history
 		
 		string tempHistory = tempWirePtr->GetHistory();
-		if ((tempHistory.length() == 0) && (time == 0)) {
-			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
-			// append history with "_" or "-"
+		if ((time == 0)) {
+			// sets the first member of a history string to _ or -
+			tempWirePtr->SetHistory(GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
 		else if ((time != 0)) {
 			if (tempHistory.length() == 0) {
@@ -239,6 +239,8 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 			// destroy top of priority queue
 			p.pop();
 	}
+
+	
 }
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time) {

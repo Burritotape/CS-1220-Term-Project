@@ -12,7 +12,7 @@ Wire::Wire(string N = "", int I = -1) {
 	value = 2;
 	index = I;
 	name = N;
-	history = "";
+	history = "X";
 	drives.push_back(NULL);
 }
 
