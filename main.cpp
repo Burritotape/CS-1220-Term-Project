@@ -155,11 +155,18 @@ char GetHiOrLoOrNo(int B) {
 	}
 }
 
-int GetNextPriority(vector<Event> qu) {
+int GetNextPriority(priority_queue<Event> qu) {
+	vector<Event> qv;
+	priority_queue<Event> cu = qu;
+	for (int i = 0; i < cu.size(); i++) {
+		qv.push_back(cu.top());
+		cu.pop();
+	}
+
 	int highest = 0;
 	for (int i = 0; i < qu.size(); i++) {
-		if (qu[i].GetOOArrival() > highest) {
-			highest = qu[i].GetOOArrival();
+		if (qv[i].GetOOArrival() > highest) {
+			highest = qv[i].GetOOArrival();
 		}
 	}
 	return highest + 1;
@@ -196,7 +203,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 
 
 			int E2 = g[i]->evaluate();
-			int OOA = p.size();
+			int OOA = GetNextPriority(p);
 			int index = currEvent.GetWireNum();
 			// if the inputs from befor and after do not match, change to new value
 			if (E1 != E2) {
@@ -212,10 +219,10 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 		}
 
 		//pull history
-		/*
+		
 		string tempHistory = tempWirePtr->GetHistory();
 		if ((tempHistory.length() == 0) && (time == 0)) {
-			tempWire.SetHistory(tempHistory + GetHiOrLo(currEvent.GetVoltVal()));
+			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
 			// append history with "_" or "-"
 		}
 		else if ((time != 0)) {
@@ -226,7 +233,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 
 			}
 		}
-		*/
+		
 		
 
 			// destroy top of priority queue
