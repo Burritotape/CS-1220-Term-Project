@@ -185,11 +185,17 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 
 
 			int E2 = g[i]->evaluate();
+			int OOA = p.size();
 			// if the inputs from befor and after do not match, change to new value
 			if (E1 != E2) {
 				f->SetValue(E2);
 				// If different, make and store an event that changes the wire at the ouput of the gate at currTime + GateDelay
+				//create event and store info in event
+				int eventTime = (time + g[i]->getDelay());
+				Event newEvent = Event(index, eventTime, E2, OOA);
 
+				// Store event in the queue
+				p.push(newEvent);
 			}
 		}
 
