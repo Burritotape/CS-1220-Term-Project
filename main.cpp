@@ -201,16 +201,17 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	}
 }
 // visually show what happened, using the stored results from the simulation
-void print(vector<Wire*> w, int & time) {
+void print(vector<Wire*> w, int& time) {
 	string printHeading = "    ";
 	// add number of time intervals to header
 	for (int i = 0; i <= time + 1; i++) {
-		printHeading += i;
+		string s = to_string(i);
+		printHeading += s;
 	}
-	cout << printHeading;
+	cout << printHeading << endl;
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
-		w[1]->printHistory();
+		w[i]->printHistory();
 	}
 }
 
