@@ -9,7 +9,7 @@
 #include "Event.h"
 
 Event::Event() {
-	wireNum = k;
+	wireNum = -1;
 	time = -1;
 	voltVal = 2;
 }
@@ -18,8 +18,7 @@ Event::Event(int I, int T, int V, int O) {
 	wireNum = I;
 	time = T;
 	voltVal = V;
-	OOArrival = k;
-	k += 1;
+	OOArrival = O;
 }
 
 int Event::GetTime() const {
@@ -41,6 +40,8 @@ bool operator<(const Event& c1, const Event& c2) {
 	if (c1.time == c2.time) {
 		return c1.OOArrival > c2.OOArrival;
 	}
-
+	
 	return c1.OOArrival > c2.OOArrival;
+	
+	
 }
