@@ -21,6 +21,7 @@ public:
     int GetWireNum() const;
     int GetTime() const;
     int GetVoltVal() const;
+    int GetOOArrival() const;
 
 private:
     int k = 0;

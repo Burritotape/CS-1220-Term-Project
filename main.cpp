@@ -143,7 +143,7 @@ void readInitialConditions(ifstream& f, priority_queue<Event> &Qu, const vector<
 	}
 }
 
-char GetHiOrLo(int B) {
+char GetHiOrLoOrNo(int B) {
 	if (B == 1) {
 		return '-';
 	}
@@ -154,6 +154,16 @@ char GetHiOrLo(int B) {
 		return 'X';
 	}
 }
+
+int GetNextPriority(vector<Event> qu) {
+	int highest = 0;
+	for (int i = 0; i < qu.size(); i++) {
+		if (qu[i].GetOOArrival() > highest) {
+			highest = qu[i].GetOOArrival();
+		}
+	}
+}
+
 
 void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	// grab items from the queue to run the simulation
