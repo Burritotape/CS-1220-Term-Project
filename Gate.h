@@ -14,7 +14,7 @@ public:
         Wire* wirePtr2, Wire* wirePtr3);
     Gate(string gateT, int delayT, Wire* wirePtr1, Wire* wirePtr3);
     int getDelay() const;
-    Wire* getInput(int) const;
+    Wire* getInput(int q) const;
     Wire* getOutput() const;
     int evaluate() const; // exercise Gate logic
 
