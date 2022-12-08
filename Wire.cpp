@@ -20,7 +20,7 @@ Wire::Wire(string N = "", int I = -1) {
 void Wire::SetValue(int V) {
 	value = V;
 }
-
+ 
 void Wire::SetHistory(string H) {
 	history = H;
 }
