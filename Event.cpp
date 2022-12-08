@@ -12,6 +12,7 @@ Event::Event() {
 	wireNum = -1;
 	time = -1;
 	voltVal = 2;
+	OOArrival = -1;
 }
 
 Event::Event(int I, int T, int V, int O) {
