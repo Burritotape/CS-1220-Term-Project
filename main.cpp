@@ -173,7 +173,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 
 			Wire* tempWirePtr = w[currWireNum];
 
-			vector<Gate*> g = tempWirePtr->GetDrives();
+			
 
 			Wire* f = g[i]->getOutput();
 			int E1 = f->GetValue();
@@ -188,19 +188,10 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 			// if the inputs from befor and after do not match, change to new value
 			if (E1 != E2) {
 				f->SetValue(E2);
+				// If different, make and store an event that changes the wire at the ouput of the gate at currTime + GateDelay
+
 			}
-
-			Wire* f = g[0]->getOutput();
-			// If different, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
-
-			g[0]->evaluate();
-		
 		}
-		
-		
-			// If different, make an event that changes the wire at the ouput of the gate at currTime + GateDelay
-			// If same, do nothing more and move onto next event.
-	
 
 		//pull history
 		/*
