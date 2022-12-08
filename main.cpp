@@ -162,6 +162,7 @@ int GetNextPriority(vector<Event> qu) {
 			highest = qu[i].GetOOArrival();
 		}
 	}
+	return highest + 1;
 }
 
 
