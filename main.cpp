@@ -226,7 +226,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 			// append history with "_" or "-"
 		}
 		else if ((time != 0)) {
-			if ((tempHistory.length() == 0) {
+			if (tempHistory.length() == 0) {
 
 			}
 			else {
