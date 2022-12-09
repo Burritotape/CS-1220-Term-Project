@@ -195,7 +195,6 @@ int GetNextPriority(priority_queue<Event> qu) {
 
 void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFileName) {
 	// grab items from the queue to run the simulation
-	cout << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;
 	while (!p.empty()) {
 		Event currEvent = p.top();
 		// update wire states based on read events
@@ -325,8 +324,7 @@ int main() {
 	string newCFN, vFileName;
 	//while (!exit) {
 		while (!yes) {
-			//ask for curcuit file input
-			cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
+			//ask for circuit file input
 			cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
 
 
@@ -337,28 +335,32 @@ int main() {
 			}
 			newCFN = cFileName + ".txt";
 			cfile.open(newCFN);
+			cout << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;	
 			if (!cfile.is_open()) {
-				cout << "Error 404 : Circuit file not found.  Please try again." << endl;
+				cout << "Error opening file " << cFileName << ".txt\n";
+				cout << "Error reading circuit description file" << endl;
 			}
 			// construct event queue
-			else if (cfile.is_open()) {
+			else /*if (cfile.is_open())*/ {
 				readCircuitDescription(cfile, gates, wires, circuitName);
 				// parse vector file
+				cfile.close();
 				vFileName = cFileName + "_v.txt";
 				vfile.open(vFileName);
 				if (!vfile.is_open()) {
-					cout << "Error 405 : Vector file not found.  Please try again." << endl;
+					cout << "Error reading circuit description file" << endl;
 				}
-				else if (vfile.is_open()) {
+				else /*if (vfile.is_open())*/ {
 					readInitialConditions(vfile, PQ, wires);
 					// yes = true;
 				}
+				vfile.close();
+				// simulate the circuit with the events
+				simulate(wires, PQ, time, cFileName);
+				// print out the histories of the wires
+				print(wires, time, circuitName);
+				cFileName = "0";
 			}
-			// simulate the circuit with the events
-			simulate(wires, PQ, time, cFileName);
-			// print out the histories of the wires
-			print(wires, time, circuitName);
-			cFileName = "0";
 		}
 		
 	//}
