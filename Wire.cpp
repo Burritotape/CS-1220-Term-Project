@@ -53,7 +53,7 @@ vector<Gate*> Wire::GetDrives() const {
 void Wire::NMorpher(int time) {
 	char A1, B2;
 	int j;
-	for (int i = 0; i <= (time - 2); ++i) {
+	for (int i = 0; i <= (time - 1); ++i) {
 		j = i + 1;
 		A1 = history[i];
 		B2 = history[j];
@@ -67,13 +67,13 @@ void Wire::NMorpher(int time) {
 void Wire::FixHistory(int maxTime) {
 	// make history correct length by adding N's or chopping the string
 	if (history.size() < maxTime) {
-		int j = maxTime - history.length() + 1;
+		int j = maxTime - history.length();
 		for (int i = 0; i < j; ++i){
 			history = history + "N";
 		}
 	}
 	else if (history.size() > maxTime) {
-		int j = history.length() - maxTime + 1;
+		int j = history.length() - maxTime;
 		for (int i = 0; i < j; ++i) {
 			history.pop_back();
 		}
