@@ -247,13 +247,14 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	
 }
 // visually show what happened, using the stored results from the simulation
-void print(vector<Wire*> w, int& time) {
+void print(vector<Wire*> w, int& time, string &cFileName) {
 	string printHeading = "    ";
 	// add number of time intervals to header
 	for (int i = 0; i <= time + 1; i++) {
 		string s = to_string(i);
 		printHeading += s;
 	}
+	cout << endl << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;
 	cout << printHeading << endl;
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
@@ -306,6 +307,6 @@ int main() {
 	simulate(wires, PQ, time);
 	cout << "Cow's go 'Who'?\n";
 	// print out the histories of the wires
-	print(wires, time);
-	cout << "No dear lab instructor, Cow's go 'MOO'\n";
+	print(wires, time, cFileName);
+	cout << "No dear lab instructor, Cow's go 'MOO'";
 }
