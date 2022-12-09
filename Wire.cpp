@@ -20,7 +20,7 @@ Wire::Wire(string N, int I = -1) {
 void Wire::SetValue(int V) {
 	value = V;
 }
- 
+
 void Wire::SetHistory(string H) {
 	history = H;
 }
@@ -39,7 +39,7 @@ int Wire::GetIndex() const {
 }
 
 string Wire::GetName() const {
-	return name; 
+	return name;
 }
 
 string Wire::GetHistory() const {
@@ -48,6 +48,44 @@ string Wire::GetHistory() const {
 
 vector<Gate*> Wire::GetDrives() const {
 	return drives;
+}
+
+void Wire::NMorpher(int time) {
+	char A1, B2;
+	int j;
+	for (int i = 0; i <= (time - 2); ++i) {
+		j = i + 1;
+		A1 = history[i];
+		B2 = history[j];
+
+		if ((A1 != 'N') && (B2 == 'N')) {
+			history[j] = history[i];
+		}
+		/*
+		if (i == (time - 3)) {
+			int k = time - 4;
+			history[i] = A1;
+			history[k] = A1;
+		}
+		*/
+	}
+}
+
+void Wire::FixHistory(int maxTime) {
+	// make history correct length by adding N's or chopping the string
+	if (history.size() < maxTime) {
+		int j = maxTime - history.length() - 1;
+		for (int i = 0; i < j; ++i){
+			history = history + "N";
+		}
+	}
+	else if (history.size() > maxTime) {
+		int j = history.length() - maxTime + 1;
+		for (int i = 0; i < j; ++i) {
+			history.pop_back();
+		}
+	}
+	NMorpher(maxTime);
 }
 
 //The function used to print the history of the circuit 

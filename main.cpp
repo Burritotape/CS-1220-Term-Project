@@ -254,6 +254,10 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 
 	
 }
+
+
+
+
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
 	int maxTime = 0;
@@ -277,8 +281,10 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 		}
 	}
 	cout << "Wire traces:\n";
+	maxTime = time;
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
+		w[i]->FixHistory(maxTime);
 		if (w[i] != w.back()) {
 			w[i]->printHistory();
 			cout << " " << endl;
