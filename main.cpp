@@ -173,8 +173,9 @@ int GetNextPriority(priority_queue<Event> qu) {
 }
 
 
-void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
+void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFileName) {
 	// grab items from the queue to run the simulation
+	cout << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;
 	while (!p.empty()) {
 		Event currEvent = p.top();
 		// update wire states based on read events
@@ -247,19 +248,20 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time) {
 	
 }
 // visually show what happened, using the stored results from the simulation
-void print(vector<Wire*> w, int& time, string &cFileName) {
-	string printHeading = "    ";
+void print(vector<Wire*> w, int& time) {
+	string printHeading = "      ";
 	// add number of time intervals to header
 	for (int i = 0; i <= time + 1; i++) {
 		string s = to_string(i);
 		printHeading += s;
 	}
-	cout << endl << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;
-	cout << printHeading << endl;
+	cout << "Wire traces:\n";
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
 		w[i]->printHistory();
 	}
+	cout << printHeading << endl << endl << "Circuit name: " << /*name*/ endl;
+	cout << "Time elapsed: " << /*#ns*/ endl << endl;
 }
 
 int main() {
@@ -304,9 +306,9 @@ int main() {
 		}
 	}
 	// simulate the circuit with the events
-	simulate(wires, PQ, time);
+	simulate(wires, PQ, time, cFileName);
 	cout << "Cow's go 'Who'?\n";
 	// print out the histories of the wires
-	print(wires, time, cFileName);
+	print(wires, time);
 	cout << "No dear lab instructor, Cow's go 'MOO'";
 }
