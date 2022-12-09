@@ -14,15 +14,13 @@ Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
 	// get the wire pointer for access of the data members of the wire using the wire string ("ab" per se)
 	for (int i = 1; i < wIndexVec.size(); i++) {
 		Wire* wNameThing = wIndexVec.at(i);
-		// if (wNameThing != NULL) {
-			string wn = wNameThing->GetName();
-			if (wn == wName) {
-				return wIndexVec.at(i);
-			}
-			if (wNameThing->GetIndex() == wIndex) {
-				return wIndexVec.at(i);
-			}
-		// }
+		string wn = wNameThing->GetName();
+		if (wn == wName) {
+			return wIndexVec.at(i);
+		}
+		if (wNameThing->GetIndex() == wIndex) {
+			return wIndexVec.at(i);
+		}
 	}
 	Wire* newWire = new Wire(wName, wIndex);
 	return newWire;
@@ -52,7 +50,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
 					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
 					Wire* newWirePtr = new Wire(padLetters, wireNum);	// creates new wire pointer
-					w.push_back(newWirePtr); // places the wirepointer in the vector
+					w[wireNum] = newWirePtr; // places the wirepointer in the vector
 				}
 			}
 			else if (w.size() < (wireNum + 1)) {//the wire vector is too small
@@ -62,7 +60,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 					w.push_back(NULL);
 				}
 				Wire* newWirePointer = new Wire(padLetters, wireNum);
-				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
+				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
 			}
 
 		}
@@ -187,9 +185,9 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 	while (!p.empty()) {
 		Event currEvent = p.top();
 		// update wire states based on read events
-		// if (time != currEvent.GetTime()) {
+		if (time != currEvent.GetTime()) {
 			time = currEvent.GetTime();
-		// }
+		}
 		
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
@@ -197,14 +195,23 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 		vector<Gate*> g = tempWirePtr->GetDrives();
 
 		for (int i = 0; i < g.size(); i++) {
+
 			//Wire* tempWirePtr = w[currWireNum];
+
+			
+
 			Wire* f = g[i]->getOutput();
 			int E1 = f->GetValue();
+
 			tempWirePtr->SetValue(currEvent.GetVoltVal());
+
 			// After the setting of VoltVal compare the outputs before and after the currEvent
 			vector<Gate*> g = tempWirePtr->GetDrives();
+
+
 			int E2 = g[i]->evaluate();
 			int OOA = GetNextPriority(p);
+
 			int index = f->GetIndex(); //wrong
 			// if the inputs from befor and after do not match, change to new value
 			if (E1 != E2) {
@@ -213,11 +220,14 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 				//create event and store info in event
 				int eventTime = (time + g[i]->getDelay());
 				Event newEvent = Event(index, eventTime, E2, OOA);
+
 				// Store event in the queue
 				p.push(newEvent);
 			}
 		}
+
 		//pull history
+		
 		string tempHistory = tempWirePtr->GetHistory();
 		if ((time == 0)) {
 			// sets the first member of a history string to _ or -
@@ -235,25 +245,36 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 			}
 			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
+		
+		
+
 			// destroy top of priority queue
 			p.pop();
 	}
+
+	
 }
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
 	int maxTime = 0;
-	string printHeading = "      ";
-	string printHeading2 = "      ";
+	string printHeading = "    ";
+	string printHeading2 = "    ";
 	string printBorder = "_";
 	string tickMarks = "0----0----1----1----2----2----3----3----4----4----5----5----6";
 	string tickMarks2 = "0    5    0    5    0    5    0    5    0    5    0    5    0";
 	// add number of time intervals to header
-	for (int i = 0; i <= time; i++) {
+	for (int i = 0; i <= time + 1; i++) {
 		// string s = to_string(i);
 		string t = "_";
 		printHeading += tickMarks[i];
 		printHeading2 += tickMarks2[i];
 		printBorder += t;
+		if (i == time + 1) {
+			int j = i + 1;
+			printHeading += tickMarks[j];
+			printHeading2 += tickMarks2[j];
+			printBorder.pop_back();
+		}
 	}
 	cout << "Wire traces:\n";
 	// output wire histories
@@ -275,58 +296,49 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 int main() {
 	// vector<Event> queue;
 	bool yes = false;
-	// bool exit = false;
 	int time = 0;
-	// int finalTime = -1;
 	string circuitName = " ";
 	vector<Gate*> gates;
 	vector<Wire*> wires;
 	priority_queue<Event> PQ;
 	ifstream cfile, vfile; // circuit file and initial conditions file
 	string cFileName, newCFN, vFileName;
-	//while (!exit) {
-		while (!yes) {
-			//ask for circuit file input
-			cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
-			cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
+	while(!yes) {
+		//ask for curcuit file input
+		cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
+		cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
 
 
-			// parse circuit description file
-			cin >> cFileName;
-			/* if (cFileName == "") {
-				exit = 1;
-			}*/
-			newCFN = cFileName + ".txt";
-			cfile.open(newCFN);
-			if (!cfile.is_open()) {
-				cout << "Error 404 : Circuit file not found.  Please try again." << endl;
+		// parse circuit description file
+		cin >> cFileName;
+		newCFN = cFileName + ".txt";
+		cfile.open(newCFN);
+		if (!cfile.is_open()) {
+			cout << "Error 404 : Circuit file not found.  Please try again." << endl;
+		}
+		// construct event queue
+		else if (cfile.is_open()) {
+			cout << "Knock knock\n";
+			readCircuitDescription(cfile, gates, wires, circuitName);
+			cout << "Who's there?\n";
+			// parse vector file
+			vFileName = cFileName + "_v.txt";
+			vfile.open(vFileName);
+			if (!vfile.is_open()) {
+				
+				cout << "Error 405 : Vector file not found.  Please try again." << endl;
 			}
-			// construct event queue
-			else if (cfile.is_open()) {
-				cout << "Knock knock\n";
-				readCircuitDescription(cfile, gates, wires, circuitName);
-				cout << "Who's there?\n";
-				// parse vector file
-				vFileName = cFileName + "_v.txt";
-				vfile.open(vFileName);
-				if (!vfile.is_open()) {
-
-					cout << "Error 405 : Vector file not found.  Please try again." << endl;
-				}
-				else if (vfile.is_open()) {
-					readInitialConditions(vfile, PQ, wires);
-					cout << "Cow's go.\n";
-					yes = true;
-				}
+			else if (vfile.is_open()) {
+				readInitialConditions(vfile, PQ, wires);
+				cout << "Cow's go.\n";
+				yes = true;
 			}
 		}
-		// finalTime = time;
-		// simulate the circuit with the events
-		simulate(wires, PQ, time, cFileName);
-		cout << "Cow's go 'Who'?\n";
-		// print out the histories of the wires
-		print(wires, time, circuitName);
-		cout << "No dear lab instructor, Cow's go 'MOO'";
-	//}
-	// abort();
+	}
+	// simulate the circuit with the events
+	simulate(wires, PQ, time, cFileName);
+	cout << "Cow's go 'Who'?\n";
+	// print out the histories of the wires
+	print(wires, time, circuitName);
+	cout << "No dear lab instructor, Cow's go 'MOO'";
 }
