@@ -269,12 +269,6 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 		printHeading += tickMarks[i];
 		printHeading2 += tickMarks2[i];
 		printBorder += t;
-		/* if (i == time + 1) {
-			int j = i + 1;
-			printHeading += tickMarks[j];
-			printHeading2 += tickMarks2[j];
-			printBorder.pop_back();
-		} */
 	}
 	cout << "Wire traces:\n";
 	// output wire histories
