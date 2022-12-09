@@ -6,6 +6,7 @@
 using namespace std;
 
 class Event {
+public:
     Event();
     Event(int I, int T, int V, int O);
     int wireNum;
