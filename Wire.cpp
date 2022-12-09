@@ -50,7 +50,18 @@ vector<Gate*> Wire::GetDrives() const {
 	return drives;
 }
 
-OutputBacktrack()
+int Wire::OutputBacktrack() {
+	for (int i = 0; i < drives.size(); ++i) {
+		Gate* tempGatePtr = drives.at(i);
+		Wire* tempWirePtr= tempGatePtr->getOutput();
+		int WOutIndex = tempWirePtr->GetIndex();
+
+		if (WOutIndex == index) {
+			return WOutIndex;
+		}
+	}
+	return -1;
+}
 
 void Wire::NMorpher(int time) {
 	char A1, B2;
