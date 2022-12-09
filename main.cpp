@@ -211,7 +211,8 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 
 			int E2 = g[i]->evaluate();
 			int OOA = GetNextPriority(p);
-			int index = currEvent.GetWireNum();
+
+			int index = f->GetIndex(); //wrong
 			// if the inputs from befor and after do not match, change to new value
 			if (E1 != E2) {
 				f->SetValue(E2);
