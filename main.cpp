@@ -321,7 +321,8 @@ int main() {
 	vector<Wire*> wires;
 	priority_queue<Event> PQ;
 	ifstream cfile, vfile; // circuit file and initial conditions file
-	string cFileName, newCFN, vFileName;
+	string cFileName;
+	string newCFN, vFileName;
 	//while (!exit) {
 		while (!yes) {
 			//ask for curcuit file input
@@ -350,13 +351,15 @@ int main() {
 				}
 				else if (vfile.is_open()) {
 					readInitialConditions(vfile, PQ, wires);
-					yes = true;
+					// yes = true;
 				}
 			}
+			// simulate the circuit with the events
+			simulate(wires, PQ, time, cFileName);
+			// print out the histories of the wires
+			print(wires, time, circuitName);
+			cFileName = "0";
 		}
-		// simulate the circuit with the events
-		simulate(wires, PQ, time, cFileName);
-		// print out the histories of the wires
-		print(wires, time, circuitName);
+		
 	//}
 }
