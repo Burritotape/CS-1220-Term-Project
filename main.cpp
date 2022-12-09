@@ -14,13 +14,15 @@ Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
 	// get the wire pointer for access of the data members of the wire using the wire string ("ab" per se)
 	for (int i = 1; i < wIndexVec.size(); i++) {
 		Wire* wNameThing = wIndexVec.at(i);
-		string wn = wNameThing->GetName();
-		if (wn == wName) {
-			return wIndexVec.at(i);
-		}
-		if (wNameThing->GetIndex() == wIndex) {
-			return wIndexVec.at(i);
-		}
+		// if (wNameThing != NULL) {
+			string wn = wNameThing->GetName();
+			if (wn == wName) {
+				return wIndexVec.at(i);
+			}
+			if (wNameThing->GetIndex() == wIndex) {
+				return wIndexVec.at(i);
+			}
+		// }
 	}
 	Wire* newWire = new Wire(wName, wIndex);
 	return newWire;
@@ -50,7 +52,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
 					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
 					Wire* newWirePtr = new Wire(padLetters, wireNum);	// creates new wire pointer
-					w[wireNum] = newWirePtr; // places the wirepointer in the vector
+					w.push_back(newWirePtr); // places the wirepointer in the vector
 				}
 			}
 			else if (w.size() < (wireNum + 1)) {//the wire vector is too small
@@ -60,7 +62,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 					w.push_back(NULL);
 				}
 				Wire* newWirePointer = new Wire(padLetters, wireNum);
-				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
+				w.push_back(newWirePointer);	// FAILS to place wireNum in the vector
 			}
 
 		}
@@ -185,9 +187,9 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 	while (!p.empty()) {
 		Event currEvent = p.top();
 		// update wire states based on read events
-		if (time != currEvent.GetTime()) {
+		// if (time != currEvent.GetTime()) {
 			time = currEvent.GetTime();
-		}
+		// }
 		
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
@@ -195,23 +197,14 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 		vector<Gate*> g = tempWirePtr->GetDrives();
 
 		for (int i = 0; i < g.size(); i++) {
-
 			//Wire* tempWirePtr = w[currWireNum];
-
-			
-
 			Wire* f = g[i]->getOutput();
 			int E1 = f->GetValue();
-
 			tempWirePtr->SetValue(currEvent.GetVoltVal());
-
 			// After the setting of VoltVal compare the outputs before and after the currEvent
 			vector<Gate*> g = tempWirePtr->GetDrives();
-
-
 			int E2 = g[i]->evaluate();
 			int OOA = GetNextPriority(p);
-
 			int index = f->GetIndex(); //wrong
 			// if the inputs from befor and after do not match, change to new value
 			if (E1 != E2) {
@@ -220,14 +213,11 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 				//create event and store info in event
 				int eventTime = (time + g[i]->getDelay());
 				Event newEvent = Event(index, eventTime, E2, OOA);
-
 				// Store event in the queue
 				p.push(newEvent);
 			}
 		}
-
 		//pull history
-		
 		string tempHistory = tempWirePtr->GetHistory();
 		if ((time == 0)) {
 			// sets the first member of a history string to _ or -
@@ -245,14 +235,9 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 			}
 			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
-		
-		
-
 			// destroy top of priority queue
 			p.pop();
 	}
-
-	
 }
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
@@ -292,6 +277,7 @@ int main() {
 	bool yes = false;
 	// bool exit = false;
 	int time = 0;
+	// int finalTime = -1;
 	string circuitName = " ";
 	vector<Gate*> gates;
 	vector<Wire*> wires;
@@ -334,6 +320,7 @@ int main() {
 				}
 			}
 		}
+		// finalTime = time;
 		// simulate the circuit with the events
 		simulate(wires, PQ, time, cFileName);
 		cout << "Cow's go 'Who'?\n";
