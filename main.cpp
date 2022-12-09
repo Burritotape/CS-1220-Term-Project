@@ -164,13 +164,13 @@ string GetHiOrLoOrNo(int B) {
 int GetNextPriority(priority_queue<Event> qu) {
 	vector<Event> qv;
 	priority_queue<Event> cu = qu;
-	for (int i = 0; i < cu.size(); i++) {
+	for (int i = 0; i < qu.size(); i++) {
 		qv.push_back(cu.top());
 		cu.pop();
 	}
 
 	int highest = 0;
-	for (int i = 0; i < (qu.size() - 1); i++) {
+	for (int i = 0; i < (qu.size()); i++) {
 		if (qv[i].GetOOArrival() > highest) {
 			highest = qv[i].GetOOArrival();
 		}
