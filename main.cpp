@@ -164,6 +164,17 @@ string GetHiOrLoOrNo(int B) {
 	}
 }
 
+vector<int> WSafegaurd(vector<Wire*> W) {
+	vector<int> Dangerous;
+	for (int i = 0; i < W.size(); ++i) {
+		Wire* tPointer = W[i];
+		if (tPointer == NULL) {
+			Dangerous.push_back(i);
+		}
+	}
+	return Dangerous;
+}
+
 int GetNextPriority(priority_queue<Event> qu) {
 	vector<Event> qv;
 	priority_queue<Event> cu = qu;
