@@ -156,8 +156,11 @@ string GetHiOrLoOrNo(int B) {
 	else if (B == 0) {
 		return "_";
 	}
-	else {
+	else if (B == 2) {
 		return "X";
+	}
+	else {
+		return "N"
 	}
 }
 
