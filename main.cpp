@@ -256,14 +256,20 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 }
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
-	string printHeading = "      ";
+	int maxTime = 0;
+	string printHeading = "    ";
 	string printBorder = "_";
+	string tickMarks = "0----0----1----1----2----2----3----3----4----4----5----5----6";
 	// add number of time intervals to header
 	for (int i = 0; i <= time + 1; i++) {
-		string s = to_string(i);
+		// string s = to_string(i);
 		string t = "_";
-		printHeading += s;
+		printHeading += tickMarks[i];
 		printBorder += t;
+		if (i == time + 1) {
+			int j = i + 1;
+			printHeading += tickMarks[j];
+		}
 	}
 	cout << "Wire traces:\n";
 	// output wire histories
