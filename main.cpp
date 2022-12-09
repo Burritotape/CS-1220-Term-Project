@@ -160,7 +160,7 @@ string GetHiOrLoOrNo(int B) {
 		return "X";
 	}
 	else {
-		return "N"
+		return "N";
 	}
 }
 
