@@ -26,11 +26,11 @@ Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
 	return newWire;
 }
 
-void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
-	string circuitWord, keyword, name;
+void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, string &circuitName) {
+	string circuitWord, keyword;
 	int gateCount = 0;
 	// Read  the cirucit description
-	f >> circuitWord >> name;
+	f >> circuitWord >> circuitName;
 	// Read the first keyword
 	f >> keyword;
 	while(!f.eof()) {
@@ -49,7 +49,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 			else if (w.size() >= (wireNum + 1)) {//the wire vector is large enough
 				if (w[wireNum] == NULL) {// does not exist / is a NULL
 					//w[wireNum + 1] = padLetters;  //set current wire at that index  //this is currently wrong
-					Wire* newWirePtr = new Wire(name, wireNum);	// creates new wire pointer
+					Wire* newWirePtr = new Wire(padLetters, wireNum);	// creates new wire pointer
 					w[wireNum] = newWirePtr; // places the wirepointer in the vector
 				}
 			}
@@ -254,7 +254,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 	
 }
 // visually show what happened, using the stored results from the simulation
-void print(vector<Wire*> w, int& time) {
+void print(vector<Wire*> w, int& time, string &circuitName) {
 	string printHeading = "      ";
 	string printBorder = "_";
 	// add number of time intervals to header
@@ -276,14 +276,15 @@ void print(vector<Wire*> w, int& time) {
 		}
 	}
 	cout << printBorder << endl;
-	cout << printHeading << endl << endl << "Circuit name: " << /*name*/ endl;
-	cout << "Time elapsed: " << /*#ns*/ endl << endl;
+	cout << printHeading << endl << endl << "Circuit name: " << circuitName << endl;
+	cout << "Time elapsed: " << time << "ns\n" << endl;
 }
 
 int main() {
 	// vector<Event> queue;
 	bool yes = false;
 	int time = 0;
+	string circuitName = " ";
 	vector<Gate*> gates;
 	vector<Wire*> wires;
 	priority_queue<Event> PQ;
@@ -305,7 +306,7 @@ int main() {
 		// construct event queue
 		else if (cfile.is_open()) {
 			cout << "Knock knock\n";
-			readCircuitDescription(cfile, gates, wires);
+			readCircuitDescription(cfile, gates, wires, circuitName);
 			cout << "Who's there?\n";
 			// parse vector file
 			vFileName = cFileName + "_v.txt";
@@ -325,6 +326,6 @@ int main() {
 	simulate(wires, PQ, time, cFileName);
 	cout << "Cow's go 'Who'?\n";
 	// print out the histories of the wires
-	print(wires, time);
+	print(wires, time, circuitName);
 	cout << "No dear lab instructor, Cow's go 'MOO'";
 }
