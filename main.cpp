@@ -56,7 +56,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 				//w.resize((wireNum + 1), NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
 				while (w.size() < (wireNum + 1)) {
-					w.push_back(NULL);
+					w.push_back(NULL);																											// commented out while loop for filling with nulls, changed changes to .push_back
 				}
 				Wire* newWirePointer = new Wire(padLetters, wireNum);
 				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
@@ -96,7 +96,6 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 				Wire* newWirePtr = new Wire("", out);
 				w[out] = newWirePtr;
 			}
-
 			//creates Gate
 			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[in2], w[out]);
 			g.push_back(newGatePtr);
@@ -112,6 +111,20 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 			delayStr.pop_back();
 			delayStr.pop_back();
 			delay = atoi(delayStr.c_str());
+			// resize w vector to the size it needs to be
+			while (w.size() < (out + 1)) {
+				w.push_back(NULL);
+			}
+			if (w[out] == NULL) {
+				Wire* newWirePtr = new Wire("", out);
+				w[out] = newWirePtr;
+			}
+			w[in1]->SetDrives(g);
+			w[out]->SetDrives(g);
+			// creates gate
+			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[out]);
+			// inserts gate onto end of vector of gate pointers
+			g.push_back(newGatePtr);
 			w[in1]->SetDrives(g);
 			w[out]->SetDrives(g);
 		}
@@ -260,7 +273,7 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 		printHeading2 += tickMarks2[i];
 		printBorder += t;
 	}
-	cout << "Wire traces:\n";
+	cout << "Wire traces with internal wires:\n";
 	maxTime = time;
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
@@ -309,7 +322,7 @@ int main() {
 			cout << "Error reading circuit description file" << endl;
 		}
 		// construct event queue
-		else /*if (cfile.is_open())*/ {
+		else {
 			readCircuitDescription(cfile, gates, wires, circuitName);
 			// parse vector file
 			cfile.close();
@@ -330,3 +343,16 @@ int main() {
 		}
 	}
 }
+// Circuits status report:
+// circuit0: working!
+// circuit1: program references wire index 2, which is a nullptr
+// circuit2: wires 5 and 6's outputs are incorrect, time appears to be wrong, since outputs are shortened, multiple attempts yield different lengths: 1st attempt: 4ns; 2nd-infinity attempts: 9ns
+// circuit3: same as wire 2, but with one more output (D), both output wires are incorrect, indicates that output wire function is likely broken
+// circuit4: first run has a time of 1ns, second run produces no output, initial values for run 1 are correct
+// circuit5: could not be loaded
+// circuit6: first run 38ns, second run 37ns, should be 30ns, all output valued are correct, aside from extras due to incorrect timing
+// circuit7: both runs are 4ns, should be 6ns, all shown outputs correct
+// circuit8: time of 5ns is correct, wires 2, 3, and 4 show incorrect output
+// circuit9: could not be loaded
+// flipflop1: first run is 0ns, second run is 4ns, should be 60ns, wires 3 and 4 are incorrect, wire 4 may have an incorrect string name
+// flipflop2: both runs are 8ns, should be 60ns, wires 3 and 4 are again incorrect, with wire 4 again having an incorrect string name

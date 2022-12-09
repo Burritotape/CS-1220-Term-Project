@@ -41,7 +41,6 @@ Wire* Gate::getOutput() const {
 int Gate::evaluate() const {
     // Assign values to x and y
     int x = wireIn1->GetValue();
-    int y = wireIn2->GetValue();
     // Completed logic for NOT
     if (gateType == "NOT") {
         if (x == 0) {
@@ -54,8 +53,9 @@ int Gate::evaluate() const {
             return 2;
         }
     }
+    int y = wireIn2->GetValue();
     // Completed logic for overlapping AND and OR
-    else if (gateType == "OR" || "AND") {
+    if (gateType == "OR" || "AND") {
         if (x == 0 && y == 0) {
             return 0;
         }
