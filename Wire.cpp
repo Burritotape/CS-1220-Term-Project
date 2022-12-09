@@ -61,20 +61,13 @@ void Wire::NMorpher(int time) {
 		if ((A1 != 'N') && (B2 == 'N')) {
 			history[j] = history[i];
 		}
-		/*
-		if (i == (time - 3)) {
-			int k = time - 4;
-			history[i] = A1;
-			history[k] = A1;
-		}
-		*/
 	}
 }
 
 void Wire::FixHistory(int maxTime) {
 	// make history correct length by adding N's or chopping the string
 	if (history.size() < maxTime) {
-		int j = maxTime - history.length() - 1;
+		int j = maxTime - history.length() + 1;
 		for (int i = 0; i < j; ++i){
 			history = history + "N";
 		}

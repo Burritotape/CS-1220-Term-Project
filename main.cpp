@@ -217,7 +217,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 
 			int index = f->GetIndex(); //wrong
 			// if the inputs from befor and after do not match, change to new value
-			if (E1 != E2) {
+			if ((E1 != E2) && (index < g.size())) {
 				f->SetValue(E2);
 				// If different, make and store an event that changes the wire at the ouput of the gate at currTime + GateDelay
 				//create event and store info in event
@@ -299,7 +299,6 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 int main() {
 	// vector<Event> queue;
 	bool yes = false;
-	// bool exit = false;
 	int time = 0;
 	string circuitName = " ";
 	vector<Gate*> gates;
@@ -307,48 +306,42 @@ int main() {
 	priority_queue<Event> PQ;
 	ifstream cfile, vfile; // circuit file and initial conditions file
 	string cFileName, newCFN, vFileName;
-	//while (!exit) {
-		while (!yes) {
-			//ask for circuit file input
-			cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
-			cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
+	while(!yes) {
+		//ask for curcuit file input
+		cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
+		cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
 
 
-			// parse circuit description file
-			cin >> cFileName;
-			/* if (cFileName == "") {
-				exit = 1;
-			}*/
-			newCFN = cFileName + ".txt";
-			cfile.open(newCFN);
-			if (!cfile.is_open()) {
-				cout << "Error 404 : Circuit file not found.  Please try again." << endl;
+		// parse circuit description file
+		cin >> cFileName;
+		newCFN = cFileName + ".txt";
+		cfile.open(newCFN);
+		if (!cfile.is_open()) {
+			cout << "Error 404 : Circuit file not found.  Please try again." << endl;
+		}
+		// construct event queue
+		else if (cfile.is_open()) {
+			cout << "Knock knock\n";
+			readCircuitDescription(cfile, gates, wires, circuitName);
+			cout << "Who's there?\n";
+			// parse vector file
+			vFileName = cFileName + "_v.txt";
+			vfile.open(vFileName);
+			if (!vfile.is_open()) {
+				
+				cout << "Error 405 : Vector file not found.  Please try again." << endl;
 			}
-			// construct event queue
-			else if (cfile.is_open()) {
-				cout << "Knock knock\n";
-				readCircuitDescription(cfile, gates, wires, circuitName);
-				cout << "Who's there?\n";
-				// parse vector file
-				vFileName = cFileName + "_v.txt";
-				vfile.open(vFileName);
-				if (!vfile.is_open()) {
-
-					cout << "Error 405 : Vector file not found.  Please try again." << endl;
-				}
-				else if (vfile.is_open()) {
-					readInitialConditions(vfile, PQ, wires);
-					cout << "Cow's go.\n";
-					yes = true;
-				}
+			else if (vfile.is_open()) {
+				readInitialConditions(vfile, PQ, wires);
+				cout << "Cow's go.\n";
+				yes = true;
 			}
 		}
-		// simulate the circuit with the events
-		simulate(wires, PQ, time, cFileName);
-		cout << "Cow's go 'Who'?\n";
-		// print out the histories of the wires
-		print(wires, time, circuitName);
-		cout << "No dear lab instructor, Cow's go 'MOO'";
-	//}
-	// abort();
+	}
+	// simulate the circuit with the events
+	simulate(wires, PQ, time, cFileName);
+	cout << "Cow's go 'Who'?\n";
+	// print out the histories of the wires
+	print(wires, time, circuitName);
+	cout << "No dear lab instructor, Cow's go 'MOO'";
 }
