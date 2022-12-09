@@ -182,15 +182,15 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 		if (time != currEvent.GetTime()) {
 			time = currEvent.GetTime();
 		}
-		// update wire history, preferably in a history string, for printing
+		
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
 		Wire* tempWirePtr = w[currWireNum];
 		vector<Gate*> g = tempWirePtr->GetDrives();
 
-		for (int i = 1; i < g.size(); i++) {
+		for (int i = 0; i < g.size(); i++) {
 
-			Wire* tempWirePtr = w[currWireNum];
+			//Wire* tempWirePtr = w[currWireNum];
 
 			
 
@@ -226,7 +226,13 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 			// sets the first member of a history string to _ or -
 			tempWirePtr->SetHistory(GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
-		else if ((time != 0)) {
+		else if ((tempHistory.at(0) == '_') || (tempHistory.at(0) == '-')) {
+			for (int i = tempHistory.length(); i < time; ++i) {
+				tempHistory = tempHistory + 'N';
+			}
+			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
+		}
+		else if (tempHistory.at(0) == 'X') {
 			for (int i = tempHistory.length(); i < time; ++i) {
 				tempHistory = tempHistory + 'N';
 			}
