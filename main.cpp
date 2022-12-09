@@ -201,7 +201,11 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 
 			//Wire* tempWirePtr = w[currWireNum];
 
-			
+			int BAD = tempWirePtr->OutputBacktrack();
+
+
+
+
 			Wire* f = g[i]->getOutput();
 			int E1 = f->GetValue();
 			
