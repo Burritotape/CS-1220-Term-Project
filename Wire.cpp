@@ -53,9 +53,9 @@ vector<Gate*> Wire::GetDrives() const {
 //The function used to print the history of the circuit 
 void Wire::printHistory() const {
 	if (name == "") {
-		cout << " -" << index << " | " << history << " " << endl;
+		cout << " -" << index << " | " << history << " \n" << "    | ";
 	}
 	else {
-		cout << name << "-" << index << " | " << history << " \n" << "    | \n";
+		cout << name << "-" << index << " | " << history << " \n" << "    | ";
 	}
 }

@@ -101,6 +101,10 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 			//creates Gate
 			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[in2], w[out]);
 			g.push_back(newGatePtr);
+			//FIXME use setDrives to correctly assign the driving wires for each gate
+			w[in1]->SetDrives(g);
+			w[in2]->SetDrives(g);
+			w[out]->SetDrives(g);
 		}
 		else if (keyword == "NOT") {
 			gateCount += 1;
@@ -109,6 +113,8 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w) {
 			delayStr.pop_back();
 			delayStr.pop_back();
 			delay = atoi(delayStr.c_str());
+			w[in1]->SetDrives(g);
+			w[out]->SetDrives(g);
 		}
 		f >> keyword;
 	}
@@ -164,7 +170,7 @@ int GetNextPriority(priority_queue<Event> qu) {
 	}
 
 	int highest = 0;
-	for (int i = 0; i < qu.size(); i++) {
+	for (int i = 0; i < (qu.size() - 1); i++) {
 		if (qv[i].GetOOArrival() > highest) {
 			highest = qv[i].GetOOArrival();
 		}
@@ -250,16 +256,24 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time) {
 	string printHeading = "      ";
+	string printBorder = "      _";
 	// add number of time intervals to header
 	for (int i = 0; i <= time + 1; i++) {
 		string s = to_string(i);
+		string t = "_";
 		printHeading += s;
+		printBorder += t;
 	}
 	cout << "Wire traces:\n";
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
+		//if (w[(i + 1)] != NULL) {
+		//	w[i]->printHistory();
+			cout << endl;
+		//}
 		w[i]->printHistory();
 	}
+	cout << printBorder << endl;
 	cout << printHeading << endl << endl << "Circuit name: " << /*name*/ endl;
 	cout << "Time elapsed: " << /*#ns*/ endl << endl;
 }
