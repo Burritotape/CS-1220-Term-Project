@@ -79,14 +79,14 @@ void Wire::NMorpher(int time) {
 
 void Wire::FixHistory(int maxTime) {
 	// make history correct length by adding N's or chopping the string
-	if (history.size() < maxTime) {
-		int j = maxTime - history.length();
+	if (history.size() < (maxTime+1)) {
+		int j = (maxTime+1) - history.length();
 		for (int i = 0; i < j; ++i){
 			history = history + "N";
 		}
 	}
-	else if (history.size() > maxTime) {
-		int j = history.length() - maxTime;
+	else if (history.size() > (maxTime+1)) {
+		int j = history.length() - (maxTime+1);
 		for (int i = 0; i < j; ++i) {
 			history.pop_back();
 		}
