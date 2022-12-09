@@ -201,18 +201,10 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 
 			//Wire* tempWirePtr = w[currWireNum];
 
-
-			int BAD = tempWirePtr->OutputBacktrack();
-
 			
-
-
-
-
-
 			Wire* f = g[i]->getOutput();
 			int E1 = f->GetValue();
-
+			
 			tempWirePtr->SetValue(currEvent.GetVoltVal());
 
 			// After the setting of VoltVal compare the outputs before and after the currEvent
@@ -224,7 +216,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 
 			int index = f->GetIndex(); //wrong
 			// if the inputs from befor and after do not match, change to new value
-			if ((E1 != E2)) {// && (index < (w.size()-2))
+			if ((E1 != E2) && (index < g.size())) {
 				f->SetValue(E2);
 				// If different, make and store an event that changes the wire at the ouput of the gate at currTime + GateDelay
 				//create event and store info in event
