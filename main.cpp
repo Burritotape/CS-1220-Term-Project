@@ -278,7 +278,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
 	int maxTime = 0;
-	time = time - 2;
+	//time = time - 2;
 	string printHeading = "      ";
 	string printHeading2 = "      ";
 	string printBorder = "_";
