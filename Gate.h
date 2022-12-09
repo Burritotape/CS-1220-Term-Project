@@ -16,7 +16,7 @@ public:
     int getDelay() const;
     Wire* getInput(int q) const;
     Wire* getOutput() const;
-    int evaluate() const; // exercise Gate logic
+    int evaluate() const;
 
 private:
     string gateType;

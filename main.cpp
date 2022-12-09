@@ -25,7 +25,6 @@ Wire* getWireIndex(string wName, int wIndex, vector<Wire*> wIndexVec) {
 	Wire* newWire = new Wire(wName, wIndex);
 	return newWire;
 }
-
 void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, string &circuitName) {
 	string circuitWord, keyword;
 	int gateCount = 0;
@@ -34,8 +33,9 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 	// Read the first keyword
 	f >> keyword;
 	while(!f.eof()) {
-		string delayStr, padLetters;
-		int delay, in1, in2, out, wireNum;
+		string delayStr = "";
+		string padLetters = "";
+		int delay, in1, in2, out, wireNum = -1;
 		if ((keyword == "INPUT") || (keyword == "OUTPUT")) {
 			// assign elements
 			f >> padLetters >> wireNum;
@@ -60,7 +60,8 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 					w.push_back(NULL);
 				}
 				Wire* newWirePointer = new Wire(padLetters, wireNum);
-				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
+				// places pointer to newWire in w, the wire pointer vector
+				w[wireNum] = newWirePointer;
 			}
 
 		}
@@ -97,7 +98,6 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 				Wire* newWirePtr = new Wire("", out);
 				w[out] = newWirePtr;
 			}
-
 			//creates Gate
 			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[in2], w[out]);
 			g.push_back(newGatePtr);
@@ -113,15 +113,27 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 			delayStr.pop_back();
 			delayStr.pop_back();
 			delay = atoi(delayStr.c_str());
+			// resize w vector to the size it needs to be
+			while (w.size() < (out + 1)) {
+				w.push_back(NULL);
+			}
+			if (w[out] == NULL) {
+				Wire* newWirePtr = new Wire("", out);
+				w[out] = newWirePtr;
+			}
+			w[in1]->SetDrives(g);
+			w[out]->SetDrives(g);
+			// creates gate
+			Gate* newGatePtr = new Gate(keyword, delay, w[in1], w[out]);
+			// inserts gate onto end of vector of gate pointers
+			g.push_back(newGatePtr);
 			w[in1]->SetDrives(g);
 			w[out]->SetDrives(g);
 		}
 		f >> keyword;
 	}
-
 	return;
 }
-
 // make the queue from initial state of the circuit
 void readInitialConditions(ifstream& f, priority_queue<Event> &Qu, const vector<Wire*> &w) {
 	// Declarations
@@ -148,7 +160,6 @@ void readInitialConditions(ifstream& f, priority_queue<Event> &Qu, const vector<
 		OOA += 1;
 	}
 }
-
 string GetHiOrLoOrNo(int B) {
 	if (B == 1) {
 		return "-";
@@ -163,7 +174,6 @@ string GetHiOrLoOrNo(int B) {
 		return "N";
 	}
 }
-
 vector<int> WSafegaurd(vector<Wire*> W) {
 	vector<int> Dangerous;
 	for (int i = 0; i < W.size(); ++i) {
@@ -174,7 +184,6 @@ vector<int> WSafegaurd(vector<Wire*> W) {
 	}
 	return Dangerous;
 }
-
 int GetNextPriority(priority_queue<Event> qu) {
 	vector<Event> qv;
 	priority_queue<Event> cu = qu;
@@ -191,50 +200,35 @@ int GetNextPriority(priority_queue<Event> qu) {
 	}
 	return highest + 1;
 }
-
-
 void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFileName) {
 	// grab items from the queue to run the simulation
-	cout << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;
 	while (!p.empty()) {
 		Event currEvent = p.top();
 		// update wire states based on read events
-		if (time != currEvent.GetTime()) {
+		// if (time != currEvent.GetTime()) {
 			time = currEvent.GetTime();
-		}
-		
+		// }
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
 		Wire* tempWirePtr = w[currWireNum];
 		vector<Gate*> g = tempWirePtr->GetDrives();
-
 		for (int i = 0; i < g.size(); i++) {
-
 			//Wire* tempWirePtr = w[currWireNum];
-
 			int BAD = tempWirePtr->OutputBacktrack();
-
-
-
-
 			Wire* f = g[i]->getOutput();
 			int E1 = f->GetValue();
-			
 			tempWirePtr->SetValue(currEvent.GetVoltVal());
-
 			// After the setting of VoltVal compare the outputs before and after the currEvent
 			vector<Gate*> g = tempWirePtr->GetDrives();
-
-
 			int E2 = g[i]->evaluate();
 			int OOA = GetNextPriority(p);
-
 			int index = f->GetIndex(); //wrong
 			// if the inputs from befor and after do not match, change to new value
 			if ((E1 != E2) && (BAD != E2)) {
 				f->SetValue(E2);
-				// If different, make and store an event that changes the wire at the ouput of the gate at currTime + GateDelay
-				//create event and store info in event
+				// If different, make and store an event that changes the wire
+				// at the ouput of the gate at currTime + GateDelay;
+				// create event and store info in event
 				int eventTime = (time + g[i]->getDelay());
 				Event newEvent = Event(index, eventTime, E2, OOA);
 
@@ -242,9 +236,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 				p.push(newEvent);
 			}
 		}
-
-		//pull history
-		
+		// pull history
 		string tempHistory = tempWirePtr->GetHistory();
 		if ((time == 0)) {
 			// sets the first member of a history string to _ or -
@@ -262,19 +254,10 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 			}
 			tempWirePtr->SetHistory(tempHistory + GetHiOrLoOrNo(currEvent.GetVoltVal()));
 		}
-		
-		
-
-			// destroy top of priority queue
-			p.pop();
+		// destroy top of priority queue
+		p.pop();
 	}
-
-	
 }
-
-
-
-
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
 	int maxTime = 0;
@@ -292,7 +275,7 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 		printHeading2 += tickMarks2[i];
 		printBorder += t;
 	}
-	cout << "Wire traces:\n";
+	cout << "Wire traces with internal wires:\n";
 	maxTime = time;
 	// output wire histories
 	for (int i = 1; i < w.size(); i++) {
@@ -307,13 +290,13 @@ void print(vector<Wire*> w, int& time, string &circuitName) {
 	}
 	cout << printBorder << endl;
 	cout << printHeading << endl;;
-	cout << printHeading2 << endl << endl << "Circuit name: " << circuitName << endl;
+	cout << printHeading2 << endl << endl;
+	cout << "Circuit name: " << circuitName << endl;
 	cout << "Time elapsed: " << time << "ns\n" << endl;
 }
 
 int main() {
 	// vector<Event> queue;
-	bool yes = false;
 	bool exit = false;
 	int time = 0;
 	string circuitName = " ";
@@ -324,42 +307,54 @@ int main() {
 	string cFileName;
 	string newCFN, vFileName;
 	//while (!exit) {
-		while (!yes) {
-			//ask for curcuit file input
-			cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
-			cout << "Press <ENTER> only at prompt to quit program." << endl << "What is the name of the circuit test file (base name only):  ";
-
-
-			// parse circuit description file
-			getline(cin, cFileName);
-			if (cFileName == "") {
-				return 0;
+	while (!exit) {
+		//ask for circuit file input
+		cout << "Press <ENTER> only at prompt to quit program.\n";
+		cout << "What is the name of the circuit test file (base name only):  ";
+		// parse circuit description file
+		getline(cin, cFileName);
+		if (cFileName == "") {
+			return 0;
+		}
+		newCFN = cFileName + ".txt";
+		cfile.open(newCFN);
+		cout << "\nSimulating " << cFileName << ".txt.\n" << endl << endl << endl;	
+		if (!cfile.is_open()) {
+			cout << "Error opening file " << cFileName << ".txt\n";
+			cout << "Error reading circuit description file" << endl;
+		}
+		// construct event queue
+		else {
+			readCircuitDescription(cfile, gates, wires, circuitName);
+			// parse vector file
+			cfile.close();
+			vFileName = cFileName + "_v.txt";
+			vfile.open(vFileName);
+			if (!vfile.is_open()) {
+				cout << "Error reading circuit description file" << endl;
 			}
-			newCFN = cFileName + ".txt";
-			cfile.open(newCFN);
-			if (!cfile.is_open()) {
-				cout << "Error 404 : Circuit file not found.  Please try again." << endl;
+			else {
+				readInitialConditions(vfile, PQ, wires);
 			}
-			// construct event queue
-			else if (cfile.is_open()) {
-				readCircuitDescription(cfile, gates, wires, circuitName);
-				// parse vector file
-				vFileName = cFileName + "_v.txt";
-				vfile.open(vFileName);
-				if (!vfile.is_open()) {
-					cout << "Error 405 : Vector file not found.  Please try again." << endl;
-				}
-				else if (vfile.is_open()) {
-					readInitialConditions(vfile, PQ, wires);
-					// yes = true;
-				}
-			}
+			vfile.close();
 			// simulate the circuit with the events
 			simulate(wires, PQ, time, cFileName);
 			// print out the histories of the wires
 			print(wires, time, circuitName);
 			cFileName = "0";
 		}
-		
-	//}
+	}
 }
+// Circuits status report:
+// circuit0: working!
+// circuit1: program references wire index 2, which is a nullptr
+// circuit2: wires 5 and 6's outputs are incorrect, time appears to be wrong, since outputs are shortened, multiple attempts yield different lengths: 1st attempt: 4ns; 2nd-infinity attempts: 9ns
+// circuit3: same as wire 2, but with one more output (D), both output wires are incorrect, indicates that output wire function is likely broken
+// circuit4: first run has a time of 1ns, second run produces no output, initial values for run 1 are correct
+// circuit5: could not be loaded
+// circuit6: first run 38ns, second run 37ns, should be 30ns, all output valued are correct, aside from extras due to incorrect timing
+// circuit7: both runs are 4ns, should be 6ns, all shown outputs correct
+// circuit8: time of 5ns is correct, wires 2, 3, and 4 show incorrect output
+// circuit9: could not be loaded
+// flipflop1: first run is 0ns, second run is 4ns, should be 60ns, wires 3 and 4 are incorrect, wire 4 may have an incorrect string name
+// flipflop2: both runs are 8ns, should be 60ns, wires 3 and 4 are again incorrect, with wire 4 again having an incorrect string name
