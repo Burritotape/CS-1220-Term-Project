@@ -1,4 +1,6 @@
 // This is the wire implmentation file
+// Created by Joshua Cappella and Jaeden Biermeier
+// 11/16/2022
 #pragma once
 #include "Wire.h"
 #include "Gate.h"
@@ -15,21 +17,19 @@ Wire::Wire(string N, int I = -1) {
 	history = "X";
 	drives.push_back(NULL);
 }
-
 //The three set functions to set the component info
 void Wire::SetValue(int V) {
 	value = V;
 }
-
+// 
 void Wire::SetHistory(string H) {
 	history = H;
 }
-
+// 
 void Wire::SetDrives(vector<Gate*> D) {
 	drives = D;
 }
-
-//The five Get funtions to obtain the stored wire data 
+//
 int Wire::GetValue() const {
 	return value;
 }
@@ -93,7 +93,6 @@ void Wire::FixHistory(int maxTime) {
 	}
 	NMorpher(maxTime);
 }
-
 //The function used to print the history of the circuit 
 void Wire::printHistory() const {
 	if (name == "") {

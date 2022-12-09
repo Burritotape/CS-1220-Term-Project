@@ -1,4 +1,6 @@
 // This is the Wire attribute file
+// Created by Joshua Cappella and Jaeden Biermeier
+// 11/16/2022
 #pragma once
 #include <string>
 #include <vector>

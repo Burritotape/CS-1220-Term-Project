@@ -57,7 +57,7 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 				//w.resize((wireNum + 1), NULL); //expand vector to accomidate current wire and set all added elements to NULL
 				//set current wire at that index
 				while (w.size() < (wireNum + 1)) {
-					w.push_back(NULL);																											// commented out while loop for filling with nulls, changed changes to .push_back
+					w.push_back(NULL);
 				}
 				Wire* newWirePointer = new Wire(padLetters, wireNum);
 				// places pointer to newWire in w, the wire pointer vector
@@ -261,7 +261,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
 	int maxTime = 0;
-	// time = time - 2;
+	time = time - 2;
 	string printHeading = "      ";
 	string printHeading2 = "      ";
 	string printBorder = "_";
