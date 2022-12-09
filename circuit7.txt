@@ -1,5 +1,5 @@
 CIRCUIT DrivesTwo
-INPUT   A    1DrivesTwo
+INPUT   A    1
 OUTPUT  B    3
 OUTPUT  C    4
 NOT     2ns  1   3
