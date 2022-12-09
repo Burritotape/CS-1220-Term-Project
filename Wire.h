@@ -23,6 +23,9 @@ public:
     string GetHistory() const;
     vector<Gate*> GetDrives() const;
 
+    void FixHistory(int time);
+    void NMorpher(int time);
+
     void printHistory() const;
 
 private:
