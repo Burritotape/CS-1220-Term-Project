@@ -327,9 +327,7 @@ int main() {
 			}
 			// construct event queue
 			else if (cfile.is_open()) {
-				cout << "Knock knock\n";
 				readCircuitDescription(cfile, gates, wires, circuitName);
-				cout << "Who's there?\n";
 				// parse vector file
 				vFileName = cFileName + "_v.txt";
 				vfile.open(vFileName);
@@ -339,17 +337,14 @@ int main() {
 				}
 				else if (vfile.is_open()) {
 					readInitialConditions(vfile, PQ, wires);
-					cout << "Cow's go.\n";
 					yes = true;
 				}
 			}
 		}
 		// simulate the circuit with the events
 		simulate(wires, PQ, time, cFileName);
-		cout << "Cow's go 'Who'?\n";
 		// print out the histories of the wires
 		print(wires, time, circuitName);
-		cout << "No dear lab instructor, Cow's go 'MOO'";
 		exit = true;
 	}
 	return 0;
