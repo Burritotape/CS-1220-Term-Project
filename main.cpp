@@ -33,8 +33,9 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 	// Read the first keyword
 	f >> keyword;
 	while(!f.eof()) {
-		string delayStr, padLetters;
-		int delay, in1, in2, out, wireNum;
+		string delayStr = "";
+		string padLetters = "";
+		int delay, in1, in2, out, wireNum = -1;
 		if ((keyword == "INPUT") || (keyword == "OUTPUT")) {
 			// assign elements
 			f >> padLetters >> wireNum;
@@ -59,7 +60,8 @@ void readCircuitDescription(ifstream& f, vector<Gate*>& g, vector<Wire*>& w, str
 					w.push_back(NULL);																											// commented out while loop for filling with nulls, changed changes to .push_back
 				}
 				Wire* newWirePointer = new Wire(padLetters, wireNum);
-				w[wireNum] = newWirePointer;	// FAILS to place wireNum in the vector
+				// places pointer to newWire in w, the wire pointer vector
+				w[wireNum] = newWirePointer;
 			}
 
 		}
@@ -203,9 +205,9 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 	while (!p.empty()) {
 		Event currEvent = p.top();
 		// update wire states based on read events
-		if (time != currEvent.GetTime()) {
+		// if (time != currEvent.GetTime()) {
 			time = currEvent.GetTime();
-		}
+		// }
 		int currWireNum = currEvent.GetWireNum();
 		// string currHistory = currEvent.GetHistory();	
 		Wire* tempWirePtr = w[currWireNum];
@@ -234,7 +236,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 				p.push(newEvent);
 			}
 		}
-		//pull history
+		// pull history
 		string tempHistory = tempWirePtr->GetHistory();
 		if ((time == 0)) {
 			// sets the first member of a history string to _ or -
@@ -259,7 +261,7 @@ void simulate(vector<Wire*> w, priority_queue<Event> &p, int &time, string& cFil
 // visually show what happened, using the stored results from the simulation
 void print(vector<Wire*> w, int& time, string &circuitName) {
 	int maxTime = 0;
-	time = time - 2;
+	// time = time - 2;
 	string printHeading = "      ";
 	string printHeading2 = "      ";
 	string printBorder = "_";

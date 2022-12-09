@@ -7,8 +7,8 @@
 #include <string>
 #include <vector>
 
-// using namespace std;
 
+// gate constructor
 Gate::Gate(string gateT, int delayT, Wire * wirePtr1, Wire * wirePtr2, Wire * wirePtr3){
     gateType = gateT;
     delayTime = delayT;
@@ -16,17 +16,18 @@ Gate::Gate(string gateT, int delayT, Wire * wirePtr1, Wire * wirePtr2, Wire * wi
     wireIn2 = wirePtr2;
     wireOut = wirePtr3;
 }
-
+// NOT gate constructor
 Gate::Gate(string gateT, int delayT, Wire* wirePtr1, Wire* wirePtr3) {
     gateType = gateT;
     delayTime = delayT;
     wireIn1 = wirePtr1;
     wireOut = wirePtr3;
 }
-
+// returns the delay associated with a gate in nanoseconds
 int Gate::getDelay() const {
     return delayTime;
 }
+// returns a wire pointer for a gate's input
 Wire* Gate::getInput(int q) const {
     if (q == 1) {
         return wireIn1;
@@ -35,13 +36,15 @@ Wire* Gate::getInput(int q) const {
         return wireIn2;
     }
 }
+// returns a wire pointer for a gate's output
 Wire* Gate::getOutput() const {
     return wireOut;
 }
+// returns an int for the output value of a gate
 int Gate::evaluate() const {
-    // Assign values to x and y
+    // Assign value to x
     int x = wireIn1->GetValue();
-    // Completed logic for NOT
+    // completed logic for NOT
     if (gateType == "NOT") {
         if (x == 0) {
             return 1;
@@ -53,8 +56,9 @@ int Gate::evaluate() const {
             return 2;
         }
     }
+    // assign value to y
     int y = wireIn2->GetValue();
-    // Completed logic for overlapping AND and OR
+    // completed logic for overlapping AND and OR
     if (gateType == "OR" || "AND") {
         if (x == 0 && y == 0) {
             return 0;
@@ -63,7 +67,7 @@ int Gate::evaluate() const {
             return 2;
         }
     }
-    // Completed logic for OR
+    // completed logic for OR
     if (gateType == "OR") {
         if (x == 1 || y == 1) {
             return 1;
@@ -72,7 +76,7 @@ int Gate::evaluate() const {
             return 2;
         }
     }
-    // Completed remaining logic for AND
+    // completed remaining logic for AND
     if (gateType == "AND") {
         if (x == 1 && y == 1) {
             return 1;
@@ -84,7 +88,7 @@ int Gate::evaluate() const {
             return 2;
         }
     }
-    // Completed logic for XOR
+    // completed logic for XOR
     else if (gateType == "XOR") {
         if ((x == y) && (x != 2)) {
             return 1;
@@ -96,7 +100,7 @@ int Gate::evaluate() const {
             return 0;
         }
     }
-    // Completed logic for NAND
+    // completed logic for NAND
     else if (gateType == "NAND") {
         if ((x == 1) && (y == 1)) {
             return 0;
@@ -108,7 +112,7 @@ int Gate::evaluate() const {
             return 1;
         }
     }
-    // Completed logic for NOR and NANDX
+    // completed logic for NOR and NANDX
     else if ((gateType == "NOR") || (gateType == "NANDX")) {
         if ((x == 0) && (y == 0)) {
             return 1;
@@ -120,7 +124,7 @@ int Gate::evaluate() const {
             return 0;
         }
     }
-    // Completed logic for XNOR and NORX
+    // completed logic for XNOR and NORX
     else if ((gateType == "XNOR") || (gateType == "NORX")) {
         if ((x == 2) || (y == 2)){
             return 2;
