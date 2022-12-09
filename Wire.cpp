@@ -50,6 +50,8 @@ vector<Gate*> Wire::GetDrives() const {
 	return drives;
 }
 
+OutputBacktrack()
+
 void Wire::NMorpher(int time) {
 	char A1, B2;
 	int j;
