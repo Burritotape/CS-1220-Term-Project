@@ -311,7 +311,7 @@ int main() {
 	priority_queue<Event> PQ;
 	ifstream cfile, vfile; // circuit file and initial conditions file
 	string cFileName, newCFN, vFileName;
-	while (!exit) {
+	//while (!exit) {
 		while (!yes) {
 			//ask for curcuit file input
 			cout << "To see available options, re-run this command with \"-u\" on the command line.\n" << endl;
@@ -319,7 +319,10 @@ int main() {
 
 
 			// parse circuit description file
-			cin >> cFileName;
+			getline(cin, cFileName);
+			if (cFileName == "") {
+				return 0;
+			}
 			newCFN = cFileName + ".txt";
 			cfile.open(newCFN);
 			if (!cfile.is_open()) {
@@ -332,7 +335,6 @@ int main() {
 				vFileName = cFileName + "_v.txt";
 				vfile.open(vFileName);
 				if (!vfile.is_open()) {
-
 					cout << "Error 405 : Vector file not found.  Please try again." << endl;
 				}
 				else if (vfile.is_open()) {
@@ -345,7 +347,5 @@ int main() {
 		simulate(wires, PQ, time, cFileName);
 		// print out the histories of the wires
 		print(wires, time, circuitName);
-		exit = true;
-	}
-	return 0;
+	//}
 }
