@@ -21,35 +21,35 @@ Wire::Wire(string N, int I = -1) {
 void Wire::SetValue(int V) {
 	value = V;
 }
-// 
+// assigns wire history with H
 void Wire::SetHistory(string H) {
 	history = H;
 }
-// 
+// assigns vector of gate pointers with drives
 void Wire::SetDrives(vector<Gate*> D) {
 	drives = D;
 }
-//
+//returns wire value
 int Wire::GetValue() const {
 	return value;
 }
-
+// returns wire index
 int Wire::GetIndex() const {
 	return index;
 }
-
+// returns wire name
 string Wire::GetName() const {
 	return name;
 }
-
+// returns wire history
 string Wire::GetHistory() const {
 	return history;
 }
-
+// returns drives
 vector<Gate*> Wire::GetDrives() const {
 	return drives;
 }
-
+// return the wire index for the output wire from a gate
 int Wire::OutputBacktrack() {
 	for (int i = 0; i < drives.size(); ++i) {
 		Gate* tempGatePtr = drives.at(i);
@@ -62,7 +62,7 @@ int Wire::OutputBacktrack() {
 	}
 	return -1;
 }
-
+// replaces Ns with correct character for history
 void Wire::NMorpher(int time) {
 	char A1, B2;
 	int j;
